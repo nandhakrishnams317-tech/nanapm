@@ -61,15 +61,11 @@ int main()
 {
     char str[100];
     int length;
-
     printf("Enter a string: ");
     scanf("%99s", str);
-
     length = strlen(str);
-
     printf("All permutations:\n");
     generate(str, 0, length - 1);
-
     return 0;
 }
 
