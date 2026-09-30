@@ -61,8 +61,6 @@ int main()
 
 /* **********OUTPUT**********
 
-    ********** OUTPUT **********
-
 Enter real and imaginary parts of first complex number: 6 4
 Enter real and imaginary parts of second complex number: 3 2
 
