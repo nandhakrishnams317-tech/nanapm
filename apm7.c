@@ -81,7 +81,7 @@ int main()
             rowSum = rowSum + a[i][j];
         }
 
-        printf("sum of row %d is %d\n", i + 1, rowSum);
+        printf("Sum of row %d is %d\n", i + 1, rowSum);
     }
 
     for(j = 0; j < c; j++)
@@ -93,7 +93,7 @@ int main()
             colSum = colSum + a[i][j];
         }
 
-        printf("sum of col %d is %d\n", j + 1, colSum);
+        printf("Sum of col %d is %d\n", j + 1, colSum);
     }
 
     for(i = 0; i < r && i < c; i++)
@@ -117,13 +117,13 @@ Enter data
 1 3 5
 7 8 9
 
-sum of row 1 is 12
-sum of row 2 is 9
-sum of row 3 is 24
+Sum of row 1 is 12
+Sum of row 2 is 9
+Sum of row 3 is 24
 
-sum of col 1 is 10
-sum of col 2 is 15
-sum of col 3 is 20
+Sum of col 1 is 10
+Sum of col 2 is 15
+Sum of col 3 is 20
 
 trace= 14
 
