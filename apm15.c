@@ -10,7 +10,7 @@ AIM: Develop a program that allows the user to input two complex numbers and cal
      difference. This program could be applied in simulations for electrical engineering or physics problems.
 */
 
-********** ALGORITHM **********
+/* **********ALGORITHM**********
 
 Step 1: Start.
 Step 2: Define a structure Complex containing real and imaginary parts.
