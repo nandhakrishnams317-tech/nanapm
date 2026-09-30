@@ -12,7 +12,7 @@ AIM: Develop a program to check if a given design (represented as a matrix) is s
 
 /* **********ALGORITHM**********
 
-Step 1: Begin.
+Step 1: Start.
 Step 2: Declare a square matrix mat[10][10] and variables size, i, j, and flag.
 Step 3: Initialize flag to 1, assuming that the matrix is symmetric.
 Step 4: Accept the order of the square matrix from the user.
@@ -23,7 +23,7 @@ Step 8: If any two corresponding elements are unequal, change flag to 0.
 Step 9: Continue checking the remaining elements of the matrix.
 Step 10: If flag remains 1, display "The Matrix is symmetric."
 Step 11: Otherwise, display "The Matrix is not symmetric."
-Step 12: End.
+Step 12: Stop.
 
 */
 
