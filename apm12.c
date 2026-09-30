@@ -1,4 +1,3 @@
-
 /*
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
@@ -69,7 +68,7 @@ int main()
     return 0;
 }
 
-********** OUTPUT **********
+/* **********OUTPUT**********
 
 Enter a document: level
 Reversed document: level
