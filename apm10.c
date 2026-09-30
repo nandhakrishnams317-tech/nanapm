@@ -24,7 +24,7 @@ Step 9: Exchange the selected character with the character at the current positi
 Step 10: Call generate() recursively for the next position.
 Step 11: Restore the exchanged characters after returning from the recursive call.
 Step 12: Continue the process until every possible arrangement is produced.
-Step 13: End.
+Step 13: Stop.
 
 */
 
