@@ -93,13 +93,13 @@ int main()
 Enter Employee ID: 102
 Enter Employee Name: Nandha
 Enter Salary: 42000
-Enter Department: Information Technology
+Enter Department: Computer Science
 
 --- Employee Details ---
 ID: 102
 Name: Nandha
 Salary: 42000.00
-Department: Information Technology
+Department: Computer Science
 
 Do you want to update the details? (1-Yes / 0-No): 0
 
