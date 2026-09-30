@@ -12,10 +12,6 @@ AIM: Write a program to develop a simple text analysis tool that takes an input 
 
 /* **********ALGORITHM**********
 
-Sure. Here is the algorithm in the exact Step 1, Step 2, Step 3... format.
-
-ALGORITHM
-
 Step 1: Start.
 Step 2: Declare a character array str[100] and initialize counters for vowels, consonants, digits, and other characters to zero.
 Step 3: Read a string from the user using fgets().
