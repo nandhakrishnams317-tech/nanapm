@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 08
-DATE: 
+DATE: 18-09-2026
 
 **********Matrix Multiplication for Image Processing**********
 
