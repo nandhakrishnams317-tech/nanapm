@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 07
-DATE: 
+DATE: 07-09-2026
 
 **********Matrix Operations for Financial Modeling**********
 
