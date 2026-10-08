@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 02
-DATE: 
+DATE: 28-09-2026
 
 **********Prime Number Finder for Data Processing**********
 
