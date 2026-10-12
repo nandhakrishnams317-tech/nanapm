@@ -4,94 +4,292 @@ Roll No: CS09
 EX NO: 08
 DATE: 18-09-2026
 
-**********Matrix Multiplication for Image Processing**********
+**********Circular  Linkedlist.**********
 
-AIM: Implement matrix multiplication to apply a transformation matrix to an image. The program should accept
-     a 2D image matrix and a transformation matrix, then output the transformed image.
+AIM: Implementation  of  circular  linkedlist.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Declare three matrices a, b and result along with row, column and loop variables.
-Step 3: Input the number of rows and columns of the first matrix.
-Step 4: Enter and store all elements of the first matrix.
-Step 5: Input the number of rows and columns of the second matrix.
-Step 6: Enter and store all elements of the second matrix.
-Step 7: Verify whether the columns of the first matrix are equal to the rows of the second matrix.
-Step 8: If the condition is false, display "Not possible because c1=r2" and terminate the program.
-Step 9: Set every element of the result matrix to zero.
-Step 10: Select each row of the first matrix and each column of the second matrix.
-Step 11: Multiply the corresponding elements and add their products.
-Step 12: Store the obtained sum in the corresponding position of the result matrix.
-Step 13: Repeat the multiplication process until all result elements are calculated.
-Step 14: Display the resulting matrix.
-Step 15: Stop.
+Step 2: Declare a doubly linked list node containing "data", "next", and "prev" fields.
+Step 3: Initialize "head = NULL".
+Step 4: Display the menu containing insertion at beginning, insertion at end, insertion after a value, deletion, display, and exit options.
+Step 5: Read the user's choice.
+Step 6: If insertion at beginning is selected, read the value and create a new node using "malloc()".
+Step 7: If memory allocation fails, display an error message and return to the menu.
+Step 8: If the list is empty, assign the new node to "head" and make its "next" and "prev" pointers point to itself.
+Step 9: Otherwise, connect the new node between the last node and the current head, and update "head".
+Step 10: If insertion at end is selected, read the value and create a new node.
+Step 11: If the list is empty, assign the new node to "head". Otherwise, connect the new node between the last node and the head.
+Step 12: If insertion after a value is selected, read the new value and the existing value after which it must be inserted.
+Step 13: Traverse the circular linked list to search for the specified existing value.
+Step 14: If the value is found, create a new node and update the "next" and "prev" pointers to insert it after that node. Otherwise, display a message indicating that the value was not found.
+Step 15: If deletion is selected, read the value to be deleted and search for the corresponding node.
+Step 16: If the list is empty or the value is not found, display an appropriate message.
+Step 17: If the node is found, update its neighboring nodes' links and update "head" if the first node is deleted.
+Step 18: If the deleted node is the only node, set "head = NULL". Free the memory occupied by the deleted node.
+Step 19: If display is selected, traverse from "head" and display each element until the traversal reaches "head" again.
+Step 20: Repeat the menu and perform the selected operation until the user chooses Exit. Release the memory occupied by the remaining nodes.
+Step 21: Stop.
 
 */
 
 /* **********SOURCE CODE********** */
 
+
 #include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+    struct Node *prev;
+} Node;
+
+Node *head = NULL;
+
+Node *createNode(int value)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return NULL;
+    }
+
+    newNode->data = value;
+    newNode->next = newNode;
+    newNode->prev = newNode;
+
+    return newNode;
+}
+
+void insertBeginning(int value)
+{
+    Node *newNode = createNode(value);
+
+    if (newNode == NULL)
+        return;
+
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        Node *last = head->prev;
+
+        newNode->next = head;
+        newNode->prev = last;
+        last->next = newNode;
+        head->prev = newNode;
+
+        head = newNode;
+    }
+
+    printf("Inserted %d at the beginning\n", value);
+}
+
+void insertEnd(int value)
+{
+    Node *newNode = createNode(value);
+
+    if (newNode == NULL)
+        return;
+
+    if (head == NULL)
+    {
+        head = newNode;
+    }
+    else
+    {
+        Node *last = head->prev;
+
+        newNode->next = head;
+        newNode->prev = last;
+        last->next = newNode;
+        head->prev = newNode;
+    }
+
+    printf("Inserted %d at the end\n", value);
+}
+
+void insertAfter(int value, int key)
+{
+    if (head == NULL)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    Node *temp = head;
+
+    do
+    {
+        if (temp->data == key)
+        {
+            Node *newNode = createNode(value);
+
+            if (newNode == NULL)
+                return;
+
+            newNode->next = temp->next;
+            newNode->prev = temp;
+            temp->next->prev = newNode;
+            temp->next = newNode;
+
+            printf("Inserted %d after %d\n", value, key);
+            return;
+        }
+
+        temp = temp->next;
+
+    } while (temp != head);
+
+    printf("Value %d not found\n", key);
+}
+
+void deleteNode(int value)
+{
+    if (head == NULL)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    Node *temp = head;
+
+    do
+    {
+        if (temp->data == value)
+        {
+            if (temp->next == temp)
+            {
+                head = NULL;
+            }
+            else
+            {
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+
+                if (temp == head)
+                    head = temp->next;
+            }
+
+            free(temp);
+            printf("Deleted %d successfully\n", value);
+            return;
+        }
+
+        temp = temp->next;
+
+    } while (temp != head);
+
+    printf("Element %d not found\n", value);
+}
+
+void display()
+{
+    if (head == NULL)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    Node *temp = head;
+
+    printf("Circular List: ");
+
+    do
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+
+    printf("(head)\n");
+}
 
 int main()
 {
-    int a[10][10], b[10][10], result[10][10];
-    int r1, c1, r2, c2;
-    int i, j, k;
+    int choice, value, key;
 
-    printf("Enter the noof rows and cols of 1st matrix\n");
-    scanf("%d %d", &r1, &c1);
-
-    printf("Enter the data\n");
-    for(i = 0; i < r1; i++)
+    do
     {
-        for(j = 0; j < c1; j++)
+        printf("\n--- Circular Linked List Menu ---\n");
+        printf("1. Insert at Beginning\n");
+        printf("2. Insert at End\n");
+        printf("3. Insert After a Value\n");
+        printf("4. Delete a Node\n");
+        printf("5. Display\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+
+        if (scanf("%d", &choice) != 1)
+            break;
+
+        switch (choice)
         {
-            scanf("%d", &a[i][j]);
+            case 1:
+                printf("Enter value: ");
+                if (scanf("%d", &value) == 1)
+                    insertBeginning(value);
+                break;
+
+            case 2:
+                printf("Enter value: ");
+                if (scanf("%d", &value) == 1)
+                    insertEnd(value);
+                break;
+
+            case 3:
+                printf("Enter new value: ");
+                if (scanf("%d", &value) != 1)
+                    break;
+
+                printf("Insert after which value? ");
+                if (scanf("%d", &key) == 1)
+                    insertAfter(value, key);
+                break;
+
+            case 4:
+                printf("Enter value to delete: ");
+                if (scanf("%d", &value) == 1)
+                    deleteNode(value);
+                break;
+
+            case 5:
+                display();
+                break;
+
+            case 6:
+                printf("Exiting program\n");
+                break;
+
+            default:
+                printf("Invalid choice\n");
         }
-    }
 
-    printf("Enter the noof rows and cols of 2nd matrix\n");
-    scanf("%d %d", &r2, &c2);
+    } while (choice != 6);
 
-    printf("Enter the data\n");
-    for(i = 0; i < r2; i++)
+    while (head != NULL)
     {
-        for(j = 0; j < c2; j++)
+        Node *temp = head;
+
+        if (head->next == head)
         {
-            scanf("%d", &b[i][j]);
+            head = NULL;
         }
-    }
-
-    if(c1 != r2)
-    {
-        printf("Not possible because c1=r2\n");
-        return 0;
-    }
-
-    printf("Matrix multiplication\n");
-
-    for(i = 0; i < r1; i++)
-    {
-        for(j = 0; j < c2; j++)
+        else
         {
-            result[i][j] = 0;
-
-            for(k = 0; k < r2; k++)
-            {
-                result[i][j] = result[i][j] + a[i][k] * b[k][j];
-            }
+            head->prev->next = head->next;
+            head->next->prev = head->prev;
+            head = head->next;
         }
-    }
 
-    for(i = 0; i < r1; i++)
-    {
-        for(j = 0; j < c2; j++)
-        {
-            printf("%d\t", result[i][j]);
-        }
-        printf("\n");
+        free(temp);
     }
 
     return 0;
@@ -99,20 +297,90 @@ int main()
 
 /* **********OUTPUT**********
 
-Enter the noof rows and cols of 1st matrix
-2 2
-Enter the data
-2 3
-4 5
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 1
+Enter value: 20
+Inserted 20 at the beginning
 
-Enter the noof rows and cols of 2nd matrix
-2 2
-Enter the data
-1 2
-3 4
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 2
+Enter value: 30
+Inserted 30 at the end
 
-Matrix multiplication
-11      16
-19      28
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 2
+Enter value: 40
+Inserted 40 at the end
+
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 3
+Enter new value: 25
+Insert after which value? 20
+Inserted 25 after 20
+
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 5
+Circular List: 20 -> 25 -> 30 -> 40 -> (head)
+
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 4
+Enter value to delete: 30
+Deleted 30 successfully
+
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 5
+Circular List: 20 -> 25 -> 40 -> (head)
+
+--- Circular Linked List Menu ---
+1. Insert at Beginning
+2. Insert at End
+3. Insert After a Value
+4. Delete a Node
+5. Display
+6. Exit
+Enter your choice: 6
+Exiting program
 
 */
