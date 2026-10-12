@@ -4,96 +4,246 @@ Roll No: CS09
 EX NO: 02
 DATE: 28-09-2026
 
-**********Prime Number Finder for Data Processing**********
+*********Queues  Using  Arrays**********
 
-AIM: Write a program that scans a list of numbers and identifies which ones are prime. It should store the prime 
-     numbers separately for further processing.
+AIM: Implementation  of  queues  using  arrays.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Define a function checkPrime() to identify whether a given number is prime or not.
-Step 3: Pass the number to the checkPrime() function.
-Step 4: If the number is less than 2, return 0 because it is not prime.
-Step 5: Initialize a loop variable i with value 2.
-Step 6: Check the divisibility of the number by each value from 2 to n/2.
-Step 7: If the number is exactly divisible by any value of i, return 0.
-Step 8: If no divisor is found, return 1 indicating that the number is prime.
-Step 9: In the main() function, input the total number of elements n.
-Step 10: Declare an array arr to store the given numbers.
-Step 11: Declare another array prime to store only the prime numbers.
-Step 12: Read n numbers from the user and store them in the arr array.
-Step 13: Pass each element of arr to the checkPrime() function.
-Step 14: If the function returns 1, store that element in the prime array.
-Step 15: Increase the prime number counter after storing each prime number.
-Step 16: Repeat the checking process until all n elements are examined.
-Step 17: Display all the elements stored in the prime array.
-Step 18: Stop.
+Step 2: Initialize "front = -1" and "rear = -1", and declare integer variables "size", "choice", and "value".
+Step 3: Read the size of the queue and create an array "queue" of the given size.
+Step 4: Initialize a variable "running" to "1".
+Step 5: Display the menu with options Enqueue, Dequeue, Peek, Display, and Exit.
+Step 6: Read the user's choice.
+Step 7: If the choice is Enqueue, read the value to be inserted and check whether "rear == size - 1".
+Step 8: If the queue is full, display Overflow. Otherwise, if the queue is empty, set "front = rear = 0" and insert the value into "queue[rear]". If the queue is not empty, increment "rear" and insert the value.
+Step 9: If the choice is Dequeue, check whether "front == -1". If true, display Underflow. Otherwise, display the deleted value. If "front == rear", set "front = rear = -1". Otherwise, increment "front".
+Step 10: If the choice is Peek, check whether "front == -1". If true, display Queue is Empty. Otherwise, display "queue[front]" as the front value.
+Step 11: If the choice is Display, check whether "front == -1". If true, display Queue is Empty. Otherwise, display all elements from "front" to "rear".
+Step 12: If the choice is Exit, set "running" to "0". If an invalid choice is entered, display Invalid Option.
+Step 13: Repeat Steps 5 to 12 while "running" is "1".
+Step 14: Stop.
 
 */
 
 /* **********SOURCE CODE********** */
 
+
 #include <stdio.h>
 
-int checkPrime(int num)
+int front = -1, rear = -1;
+
+void enqueue(int queue[], int size, int value)
+{
+    if (rear == size - 1)
+    {
+        printf("Overflow: Queue is full");
+    }
+    else if (front == -1)
+    {
+        front = rear = 0;
+        queue[rear] = value;
+        printf("Value inserted successfully");
+    }
+    else
+    {
+        rear++;
+        queue[rear] = value;
+        printf("Value inserted successfully");
+    }
+}
+
+void dequeue(int queue[])
+{
+    if (front == -1)
+    {
+        printf("Underflow: Queue is empty");
+    }
+    else
+    {
+        printf("Deleted value: %d", queue[front]);
+
+        if (front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            front++;
+        }
+    }
+}
+
+void peek(int queue[])
+{
+    if (front == -1)
+    {
+        printf("Queue is empty");
+    }
+    else
+    {
+        printf("Front value: %d", queue[front]);
+    }
+}
+
+void display(int queue[])
 {
     int i;
 
-    if(num < 2)
-        return 0;
-
-    for(i = 2; i <= num / 2; i++)
+    if (front == -1)
     {
-        if(num % i == 0)
-            return 0;
+        printf("Queue is empty");
     }
+    else
+    {
+        printf("Queue elements: ");
 
-    return 1;
+        for (i = front; i <= rear; i++)
+        {
+            printf("%d ", queue[i]);
+        }
+    }
 }
 
 int main()
 {
-    int n, i, count = 0;
+    int size, value, choice;
+    int running = 1;
 
-    printf("Enter the Number of Elements:");
-    scanf("%d", &n);
+    printf("Enter the size of queue: ");
+    scanf("%d", &size);
 
-    int arr[n], prime[n];
-
-    printf("Enter %d Numbers:\n", n);
-
-    for(i = 0; i < n; i++)
+    if (size <= 0)
     {
-        scanf("%d", &arr[i]);
-
-        if(checkPrime(arr[i]) == 1)
-        {
-            prime[count] = arr[i];
-            count++;
-        }
+        printf("Invalid queue size");
+        return 0;
     }
 
-    printf("\nPrime Numbers are:");
+    int queue[size];
 
-    for(i = 0; i < count; i++)
+    while (running)
     {
-        printf("%d ", prime[i]);
+        printf("\n\nSelect the operation:");
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Peek");
+        printf("\n4. Display");
+        printf("\n5. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter the value to enqueue: ");
+                scanf("%d", &value);
+                enqueue(queue, size, value);
+                break;
+
+            case 2:
+                dequeue(queue);
+                break;
+
+            case 3:
+                peek(queue);
+                break;
+
+            case 4:
+                display(queue);
+                break;
+
+            case 5:
+                running = 0;
+                break;
+
+            default:
+                printf("Invalid Option");
+        }
     }
 
     return 0;
 }
 
+
 /* **********OUTPUT**********
 
-Enter the Number of Elements:5
-Enter 5 Numbers:
-7
-10
-13
-15
-20
 
-Prime Numbers are:7 13
+Enter the size of queue: 3
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 1
+Enter the value to enqueue: 10
+Value inserted successfully
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 1
+Enter the value to enqueue: 20
+Value inserted successfully
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 1
+Enter the value to enqueue: 30
+Value inserted successfully
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 4
+Queue elements: 10 20 30
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 3
+Front value: 10
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 2
+Deleted value: 10
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 4
+Queue elements: 20 30
+
+Select the operation:
+1. Enqueue
+2. Dequeue
+3. Peek
+4. Display
+5. Exit
+Enter your choice: 5
+
 */     
