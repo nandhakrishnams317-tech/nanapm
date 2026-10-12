@@ -4,10 +4,9 @@ Roll No: CS09
 EX NO: 01
 DATE: 01-07-2026
 
-**********Character Analysis Tool**********
+**********Stacks Using Arrays**********
 
-AIM: Write a program to develop a simple text analysis tool that takes an input string and categorizes each 
-     character as a vowel, consonant, or other (special character, number, etc.) using a switch statement.
+AIM: Implementation  of  stacks  using  arrays
 */
 
 /* **********ALGORITHM**********
