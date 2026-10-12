@@ -4,10 +4,9 @@ Roll No: CS09
 EX NO: 06
 DATE: 03-08-2026
 
-**********Dynamic Data Display(Patterns)**********
+**********Queue  Using  Linkedlist**********
 
-AIM: •        Develop an application that displays Pascal's Triangle dynamically based on user input for the number of rows.
-     •        Also, create a pattern generator (e.g., number or star pattern) that can be customized with user input.
+AIM:Implementation  of  queue  using linkedlist.
 */
 
 /* **********ALGORITHM*********
