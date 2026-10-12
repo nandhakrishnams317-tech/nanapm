@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 01
-DATE: 01-07-2026
+DATE: 21-07-2026
 
 **********Stacks Using Arrays**********
 
