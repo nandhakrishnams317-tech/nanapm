@@ -4,10 +4,9 @@ Roll No: CS09
 EX NO: 04
 DATE: 06-08-2026
 
-**********Palindrome Checker for Database Records**********
+**********Linkedlists Operations**********
 
-AIM: Write a program to check if a given set of product codes (stored as strings in a database) are palindromes, 
-     and generate a report of the results.
+AIM: Implementation  of  linkedlists  and  operations  on  linkedlists.
 */
 
 /* **********ALGORITHM**********
