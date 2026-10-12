@@ -4,80 +4,196 @@ Roll No: CS09
 EX NO: 03
 DATE: 19-07-2026
 
-**********Efficient Prime Number Generation**********
+**********Circular  Queue  Using  Arrays.**********
 
-AIM: Implement the Sieve of Eratosthenes algorithm to generate a list of prime numbers up to a specified upper 
-     limit (e.g., 10,000). This list will be used for efficient lookups in a mathematical application.
+AIM: Implementation  of  circular  queue  using  arrays.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Get the upper limit n from the user.
-Step 3: Declare an integer array prime of size n + 1.
-Step 4: Initialize every element of the prime array with 1, indicating that the numbers are initially considered prime.
-Step 5: Assign 0 to prime[0] and prime[1] since 0 and 1 are not prime numbers.
-Step 6: Begin checking numbers from 2.
-Step 7: Continue the checking process while i × i is less than or equal to n.
-Step 8: If prime[i] is 1, consider i as a prime number.
-Step 9: Starting from i × i, mark every multiple of i as 0.
-Step 10: Increase the multiple by i and continue marking until the value exceeds n.
-Step 11: Repeat Steps 7 to 10 for all required values of i.
-Step 12: Traverse the prime array from 2 to n.
-Step 13: If prime[i] is 1, print i as a prime number.
-Step 14: Stop.
+Step 2: Initialize "front = -1" and "rear = -1", and declare an array "queue" of size "SIZE".
+Step 3: Display the menu with Enqueue, Dequeue, Display, and Exit options.
+Step 4: Read the user's choice.
+Step 5: If Enqueue is selected, read the value to be inserted and check whether "(rear + 1) % SIZE == front".
+Step 6: If the circular queue is full, display Queue is Full. Otherwise, if the queue is empty, set "front = 0". Increment "rear" circularly using "(rear + 1) % SIZE" and insert the value into "queue[rear]".
+Step 7: If Dequeue is selected, check whether "front == -1". If true, display Queue is Empty. Otherwise, display the front element. If "front == rear", set "front = rear = -1". Otherwise, increment "front" circularly using "(front + 1) % SIZE".
+Step 8: If Display is selected, check whether the queue is empty. If true, display Queue is Empty. Otherwise, display all elements from "front" to "rear", moving circularly through the array.
+Step 9: If Exit is selected, terminate the program.
+Step 10: If an invalid choice is entered, display Invalid Choice.
+Step 11: Repeat Steps 3 to 10 until the user selects Exit.
+Step 12: Stop.
 
 */
 
 /* **********SOURCE CODE********** */
+#
 #include <stdio.h>
+#define SIZE 10
+
+int queue[SIZE];
+int front = -1, rear = -1;
+
+void enqueue(int item)
+{
+    if ((rear + 1) % SIZE == front)
+    {
+        printf("Circular queue is full\n");
+    }
+    else
+    {
+        if (front == -1)
+        {
+            front = 0;
+        }
+
+        rear = (rear + 1) % SIZE;
+        queue[rear] = item;
+
+        printf("Element inserted successfully\n");
+    }
+}
+
+void dequeue()
+{
+    if (front == -1)
+    {
+        printf("Circular queue is empty\n");
+    }
+    else
+    {
+        printf("Removed element: %d\n", queue[front]);
+
+        if (front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            front = (front + 1) % SIZE;
+        }
+    }
+}
+
+void display()
+{
+    int index;
+
+    if (front == -1)
+    {
+        printf("Circular queue is empty\n");
+    }
+    else
+    {
+        printf("Queue elements: ");
+        index = front;
+
+        while (index != rear)
+        {
+            printf("%d ", queue[index]);
+            index = (index + 1) % SIZE;
+        }
+
+        printf("%d\n", queue[rear]);
+    }
+}
 
 int main()
 {
-    int n, i, j;
+    int choice, item;
 
-    printf("Enter the Upper limit:");
-    scanf("%d", &n);
-
-    int prime[n + 1];
-
-    for(i = 0; i <= n; i++)
+    do
     {
-        prime[i] = 1;
-    }
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Display");
+        printf("\n4. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
 
-    prime[0] = 0;
-    prime[1] = 0;
-
-    for(i = 2; i * i <= n; i++)
-    {
-        if(prime[i] == 1)
+        switch (choice)
         {
-            for(j = i * i; j <= n; j = j + i)
-            {
-                prime[j] = 0;
-            }
-        }
-    }
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &item);
+                enqueue(item);
+                break;
 
-    printf("\nPrime number upto %d are:\n", n);
+            case 2:
+                dequeue();
+                break;
 
-    for(i = 2; i <= n; i++)
-    {
-        if(prime[i] == 1)
-        {
-            printf("%d ", i);
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Program terminated\n");
+                break;
+
+            default:
+                printf("Invalid Choice\n");
         }
-    }
+
+    } while (choice != 4);
 
     return 0;
 }
 
 /* **********OUTPUT**********
 
-Enter the Upper limit:20
 
-Prime number upto 20 are:
-2 3 5 7 11 13 17 19
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value: 20
+Element inserted successfully
+
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value: 40
+Element inserted successfully
+
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value: 50
+Element inserted successfully
+
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 3
+Queue elements: 20 40 50
+
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 2
+Removed element: 20
+
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 3
+Queue elements: 40 50
+
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 4
+Program terminated
+
 
 */     
