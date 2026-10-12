@@ -4,167 +4,234 @@ Roll No: CS09
 EX NO: 05
 DATE: 23-07-2026
 
-**********Data Cleaning Utility: Remove Duplicates**********
+**********Stacks  Using  linkedlist**********
 
-AIM: Create a program that takes a list of customer email addresses (stored in an array) and removes any 
-     duplicates, ensuring that each email address is only represented once.
+AIM: Implementation  of  stacks  using  linkedlist
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Define a function checkEmail() to verify whether an email address is valid.
-Step 3: Read the number of customers n.
-Step 4: Declare a two-dimensional character array email[n][100] to store the email addresses.
-Step 5: Accept each customer's email address.
-Step 6: Count the number of @ symbols and record the position of @.
-Step 7: If the email does not contain exactly one @ symbol, consider it invalid.
-Step 8: Check whether @ is the first character or whether there is any character after @.
-Step 9: Search for a dot after the @ symbol.
-Step 10: If the required conditions are not satisfied, display "Invalid Email! Enter again." and read the email again.
-Step 11: Compare each email with the emails that appear after it.
-Step 12: If two email addresses are identical, shift all following addresses one position to the left.
-Step 13: Reduce the number of stored email addresses by one.
-Step 14: Continue the comparison until all duplicate addresses are removed.
-Step 15: Display the remaining email addresses.
-Step 16: Stop.
+Step 2: Initialize "top = NULL" and declare a structure containing "data" and a pointer "next".
+Step 3: Display the menu with Push, Pop, Peep, and Exit operations.
+Step 4: Read the user's choice.
+Step 5: If Push is selected, allocate memory for a new node and read the data from the user.
+Step 6: Set the "next" pointer of the new node to "top" and update "top" to the new node.
+Step 7: If Pop is selected, check whether "top == NULL". If true, display Underflow. Otherwise, display the top node's data, update "top" to the next node, and free the removed node's memory.
+Step 8: If Peep is selected, check whether "top == NULL". If true, display Stack is Empty. Otherwise, display the data stored at "top".
+Step 9: If Exit is selected, terminate the menu loop.
+Step 10: If an invalid choice is entered, display Invalid Option.
+Step 11: Repeat Steps 3 to 10 until the user selects Exit.
+Step 12: Stop.
 
 */
 
 /* **********SOURCE CODE********** */
 
+
 #include <stdio.h>
+#include <stdlib.h>
 
-int checkEmail(char email[])
+struct node
 {
-    int i, atCount = 0;
-    int atPosition = -1;
-    int dotFound = 0;
+    int data;
+    struct node *next;
+};
 
-    for(i = 0; email[i] != '\0'; i++)
+struct node *top = NULL;
+
+void push()
+{
+    struct node *newNode;
+
+    newNode = (struct node *)malloc(sizeof(struct node));
+
+    if (newNode == NULL)
     {
-        if(email[i] == '@')
-        {
-            atCount++;
-            atPosition = i;
-        }
+        printf("Memory allocation failed\n");
+        return;
     }
 
-    if(atCount != 1)
-        return 0;
+    printf("Enter the data: ");
+    scanf("%d", &newNode->data);
 
-    if(atPosition <= 0)
-        return 0;
+    newNode->next = top;
+    top = newNode;
 
-    for(i = atPosition + 1; email[i] != '\0'; i++)
+    printf("Element pushed successfully\n");
+}
+
+void pop()
+{
+    struct node *temp;
+
+    if (top == NULL)
     {
-        if(email[i] == '.')
-        {
-            dotFound = 1;
-            break;
-        }
+        printf("Underflow\n");
     }
+    else
+    {
+        temp = top;
+        printf("Popped value: %d\n", temp->data);
 
-    if(email[atPosition + 1] == '\0')
-        return 0;
+        top = top->next;
+        free(temp);
+    }
+}
 
-    if(dotFound == 0)
-        return 0;
-
-    return 1;
+void peep()
+{
+    if (top == NULL)
+    {
+        printf("Stack is empty\n");
+    }
+    else
+    {
+        printf("Top value: %d\n", top->data);
+    }
 }
 
 int main()
 {
-    int n, i, j, k;
-    int duplicate;
+    int choice, running = 1;
 
-    printf("Enter the Number of Customers: ");
-    scanf("%d", &n);
-
-    char email[n][100];
-
-    printf("Enter Customers Addresses:\n");
-
-    for(i = 0; i < n; i++)
+    while (running)
     {
-        while(1)
-        {
-            printf("Customer %d: ", i + 1);
-            scanf("%99s", email[i]);
+        printf("\nChoose the operation:\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Peep\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
 
-            if(checkEmail(email[i]))
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                push();
                 break;
 
-            printf("Invalid Email! Enter again.\n");
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                peep();
+                break;
+
+            case 4:
+                running = 0;
+                break;
+
+            default:
+                printf("Invalid Option\n");
         }
     }
 
-    for(i = 0; i < n - 1; i++)
+    while (top != NULL)
     {
-        for(j = i + 1; j < n; j++)
-        {
-            duplicate = 1;
-            k = 0;
-
-            while(email[i][k] != '\0' || email[j][k] != '\0')
-            {
-                if(email[i][k] != email[j][k])
-                {
-                    duplicate = 0;
-                    break;
-                }
-                k++;
-            }
-
-            if(duplicate)
-            {
-                for(k = j; k < n - 1; k++)
-                {
-                    int p = 0;
-
-                    while(email[k + 1][p] != '\0')
-                    {
-                        email[k][p] = email[k + 1][p];
-                        p++;
-                    }
-
-                    email[k][p] = '\0';
-                }
-
-                n--;
-                j--;
-            }
-        }
-    }
-
-    printf("\nEmail Addresses after Removing Duplicates:\n");
-
-    for(i = 0; i < n; i++)
-    {
-        printf("%s\n", email[i]);
+        struct node *temp = top;
+        top = top->next;
+        free(temp);
     }
 
     return 0;
 }
 
+
 /* **********OUTPUT**********
 
-Enter the Number of Customers: 5
 
-Enter Customers Addresses:
-Customer 1: nandha@gmail.com
-Customer 2: student@gmail.com
-Customer 3: example
-Invalid Email! Enter again.
-Customer 3: example@yahoo.com
-Customer 4: nandha@gmail.com
-Customer 5: college@university.in
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 1
+Enter the data: 10
+Element pushed successfully
 
-Email Addresses after Removing Duplicates:
-nandha@gmail.com
-student@gmail.com
-example@yahoo.com
-college@university.in
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 1
+Enter the data: 20
+Element pushed successfully
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 1
+Enter the data: 30
+Element pushed successfully
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 3
+Top value: 30
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 2
+Popped value: 30
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 3
+Top value: 20
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 2
+Popped value: 20
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 2
+Popped value: 10
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 2
+Underflow
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 3
+Stack is empty
+
+Choose the operation:
+1. Push
+2. Pop
+3. Peep
+4. Exit
+Enter your choice: 4
+
 
 */    
