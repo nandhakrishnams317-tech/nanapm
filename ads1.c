@@ -32,70 +32,162 @@ Step 17: Stop.
 */
 
 /* **********SOURCE CODE********** */
+
 #include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+
+int top = -1;
+
+void push(int stack[], int size)
+{
+    int item;
+
+    printf("Enter the value you want to push: ");
+    scanf("%d", &item);
+
+    if (top == size - 1)
+    {
+        printf("Stack Overflow");
+    }
+    else
+    {
+        top++;
+        stack[top] = item;
+        printf("Value pushed successfully");
+    }
+}
+
+void pop(int stack[])
+{
+    if (top == -1)
+    {
+        printf("Stack Underflow");
+    }
+    else
+    {
+        printf("Popped value: %d", stack[top]);
+        top--;
+    }
+}
+
+void peek(int stack[])
+{
+    if (top == -1)
+    {
+        printf("\nNo values entered");
+    }
+    else
+    {
+        printf("Top value: %d", stack[top]);
+    }
+}
 
 int main()
 {
-    char str[100];
-    int vowel = 0, consonant = 0, digit = 0, punct = 0;
-    int i, len;
+    int size, choice;
 
-    printf("Enter the String: ");
-    fgets(str, sizeof(str), stdin);
+    printf("Enter the size of stack: ");
+    scanf("%d", &size);
 
-    len = strlen(str);
-
-    printf("\nCharacter Breakdown:\n");
-
-    for(i = 0; i < len; i++)
+    if (size <= 0)
     {
-        char c = tolower((unsigned char)str[i]);
-
-        if(isalpha((unsigned char)str[i]))
-        {
-            if(c == 'a' || c == 'e' || c == 'i' ||
-               c == 'o' || c == 'u')
-            {
-                printf("%c - Vowel\n", str[i]);
-                vowel++;
-            }
-            else
-            {
-                printf("%c - Consonant\n", str[i]);
-                consonant++;
-            }
-        }
-        else if(isdigit((unsigned char)str[i]))
-        {
-            printf("%c - Digit\n", str[i]);
-            digit++;
-        }
-        else if(ispunct((unsigned char)str[i]))
-        {
-            printf("%c - Others\n", str[i]);
-            punct++;
-        }
+        printf("Invalid stack size");
+        return 0;
     }
 
-    printf("\nSummary: %d Vowels, %d Consonants, %d Digits, %d Others\n",
-           vowel, consonant, digit, punct);
+    int stack[size];
+    int running = 1;
+
+    while (running)
+    {
+        printf("\n\nEnter the operation you want to perform:");
+        printf("\n1. Push");
+        printf("\n2. Pop");
+        printf("\n3. Peek");
+        printf("\n4. Exit");
+        printf("\nEnter your choice: ");
+
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                push(stack, size);
+                break;
+
+            case 2:
+                pop(stack);
+                break;
+
+            case 3:
+                peek(stack);
+                break;
+
+            case 4:
+                running = 0;
+                break;
+
+            default:
+                printf("Invalid Option");
+        }
+    }
 
     return 0;
 }
 
+
 /* **********OUTPUT**********
 
-Enter the String: nan@3
 
-Character Breakdown:
-n - Consonant
-a - Vowel
-n - Consonant
-@ - Others
-3 - Digit
+Enter the size of stack: 3
 
-Summary: 1 Vowels, 2 Consonants, 1 Digits, 1 Others
+Enter the operation you want to perform:
+1. Push
+2. Pop
+3. Peek
+4. Exit
+Enter your choice: 1
+Enter the value you want to push: 10
+Value pushed successfully
+
+Enter the operation you want to perform:
+1. Push
+2. Pop
+3. Peek
+4. Exit
+Enter your choice: 1
+Enter the value you want to push: 20
+Value pushed successfully
+
+Enter the operation you want to perform:
+1. Push
+2. Pop
+3. Peek
+4. Exit
+Enter your choice: 3
+Top value: 20
+
+Enter the operation you want to perform:
+1. Push
+2. Pop
+3. Peek
+4. Exit
+Enter your choice: 2
+Popped value: 20
+
+Enter the operation you want to perform:
+1. Push
+2. Pop
+3. Peek
+4. Exit
+Enter your choice: 3
+Top value: 10
+
+Enter the operation you want to perform:
+1. Push
+2. Pop
+3. Peek
+4. Exit
+Enter your choice: 4
+
 
 */
