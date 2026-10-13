@@ -6,8 +6,7 @@ DATE: 13-09-2026
 
 **********String Manipulation Utility**********
 
-AIM: Create an application that implements a suite of string functions like concatenation, comparison, and 
-     conversion (uppercase to lowercase), which can be applied to a list of user-provided strings.
+AIM: Create an application that implements a suite of string functions like concatenation, comparison, and conversion (uppercase to lowercase), which can be applied to a list of user-provided strings.
 */
 
 /* **********ALGORITHM**********
