@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 11
-DATE: 13-09-2026
+DATE: 10-09-2026
 
 **********Quick Sort**********
 
-AIM: Implementation  of  quick  sort.
+AIM: Implementation of quick sort.
 */
 
 /* **********ALGORITHM**********
