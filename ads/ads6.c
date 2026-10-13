@@ -6,7 +6,7 @@ DATE: 14-08-2026
 
 **********Queue Using Linkedlist**********
 
-AIM:Implementation of queue using linkedlist.
+AIM: Implementation of queue using linkedlist.
 */
 
 /* **********ALGORITHM*********
