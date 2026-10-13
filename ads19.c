@@ -1,13 +1,12 @@
 /*
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
-EX NO: 15
+EX NO: 19
 DATE: 18-07-2026
 
-**********Complex Number Calculator for Engineering Simulations**********
+**********AVL Tree**********
 
-AIM: Develop a program that allows the user to input two complex numbers and calculates their sum and 
-     difference. This program could be applied in simulations for electrical engineering or physics problems.
+AIM: Implementation of   AVL  tree (balanced  tree).
 */
 
 /* **********ALGORITHM**********
@@ -257,7 +256,7 @@ int main()
 3. Traversal
 4. Exit
 Enter choice: 1
-Enter value: 40
+Enter value: 50
 Inserted successfully
 
 1. Insert
@@ -265,7 +264,7 @@ Inserted successfully
 3. Traversal
 4. Exit
 Enter choice: 1
-Enter value: 20
+Enter value: 30
 Inserted successfully
 
 1. Insert
@@ -273,7 +272,7 @@ Inserted successfully
 3. Traversal
 4. Exit
 Enter choice: 1
-Enter value: 10
+Enter value: 70
 Inserted successfully
 
 1. Insert
@@ -281,16 +280,16 @@ Inserted successfully
 3. Traversal
 4. Exit
 Enter choice: 3
-Inorder: 10 20 40
-Preorder: 20 10 40
-Postorder: 10 40 20
+Inorder: 30 50 70
+Preorder: 50 30 70
+Postorder: 30 70 50
 
 1. Insert
 2. Search
 3. Traversal
 4. Exit
 Enter choice: 2
-Enter key: 40
+Enter key: 30
 Key found
 
 1. Insert
@@ -298,7 +297,7 @@ Key found
 3. Traversal
 4. Exit
 Enter choice: 2
-Enter key: 60
+Enter key: 90
 Key not found
 
 1. Insert
