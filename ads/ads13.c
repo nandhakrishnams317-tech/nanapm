@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 13
-DATE: 25-09-2026
+DATE: 21-09-2026
 
 **********Infix To Postfix Using Stacks**********
 
-AIM: Conversion  of  an  infix  expression  to  the  postfix  form  using  stacks.
+AIM: Conversion of an infix expression to the postfix form using stacks.
 */
 
 /* **********ALGORITHM**********
