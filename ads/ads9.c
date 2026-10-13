@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 9
-DATE: 03-07-2026
+DATE: 01-09-2026
 
 **********Binary Tree And Traversals.**********
 
-AIM: Implementation  of  binary  tree  and  traversals.
+AIM: Implementation of binary tree and traversals.
 */
 
 /* **********ALGORITHM**********
