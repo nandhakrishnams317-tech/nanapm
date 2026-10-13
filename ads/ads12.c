@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 12
-DATE: 28-09-2026
+DATE: 16-09-2026
 
 **********Heap Sort**********
 
-AIM: Implementation  of  heap  sort.
+AIM: Implementation of heap sort.
 */
 
 /* **********ALGORITHM**********
