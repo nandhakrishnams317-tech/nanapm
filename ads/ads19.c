@@ -6,7 +6,7 @@ DATE: 07-10-2026
 
 **********AVL Tree**********
 
-AIM: Implementation of AVL tree(balanced tree).
+AIM: Implementation of AVL Tree(balanced tree).
 */
 
 /* **********ALGORITHM**********
