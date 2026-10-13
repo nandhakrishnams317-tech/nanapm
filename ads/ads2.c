@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 02
-DATE: 28-09-2026
+DATE: 25-07-2026
 
-*********Queues  Using  Arrays**********
+*********Queues Using Arrays**********
 
-AIM: Implementation  of  queues  using  arrays.
+AIM: Implementation of queues using arrays.
 */
 
 /* **********ALGORITHM**********
