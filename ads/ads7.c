@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 07
-DATE: 07-09-2026
+DATE: 20-08-2026
 
-**********Doubly  Linkedlist.**********
+**********Doubly Linkedlist**********
 
-AIM: Implementation  of  doubly  linkedlist.
+AIM: Implementation of doubly linkedlist.
 */
 
 /* **********ALGORITHM**********
