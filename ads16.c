@@ -4,103 +4,142 @@ Roll No: CS09
 EX NO: 16
 DATE: 14-08-2026
 
-**********Employee Management System**********
+**********Huffman Algorithm**********
 
-AIM: Create an application to manage employee data using structures. The program should allow input, display, 
-     and update employee details such as name, ID, salary, and department.
+AIM: Implementation of Huffman algorithm.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Define a structure Employee with members id, name, salary, and department.
-Step 3: Declare a structure variable employee and an integer variable option.
-Step 4: Display a message to enter the employee ID and read the ID.
-Step 5: Read and store the employee name.
-Step 6: Read and store the employee salary.
-Step 7: Read and store the employee department.
-Step 8: Display all the entered employee information.
-Step 9: Ask the user whether the employee details need to be updated.
-Step 10: Read the user's choice.
-Step 11: If the choice is 1, read the new name, salary, and department.
-Step 12: Store the new values in the corresponding structure members.
-Step 13: Display the updated employee information.
-Step 14: If the choice is 0, retain the existing employee information.
-Step 15: Stop.
-
-*/
+Step 2: Read the number of characters and their frequencies.
+Step 3: Create a leaf node for each character with its frequency and initialize its left and right children to -1.
+Step 4: Repeat the following steps n - 1 times:
+a. Find the two unused nodes having the smallest frequencies.
+b. Mark both selected nodes as used.
+c. Create a new internal node with the sum of their frequencies.
+d. Assign the selected nodes as the left and right children of the new node.
+Step 5: Set the last created node as the root of the Huffman tree.
+Step 6: Call the printCodes function to generate the Huffman codes.
+Step 7: If the current node is a leaf node, display its character and code.
+Step 8: If the left child exists, append '0' to the code and recursively traverse the left subtree.
+Step 9: If the right child exists, append '1' to the code and recursively traverse the right subtree.
+Step 10: Display the Huffman codes for all characters.
+Step 11: Stop.
 
 /* **********SOURCE CODE********** */
 
 #include <stdio.h>
 
-struct Employee
+struct Node
 {
-    int id;
-    char name[50];
-    float salary;
-    char department[30];
+    char ch;
+    int freq;
+    int left, right;
 };
+
+struct Node tree[100];
+int total = 0;
+
+int makeNode(char ch, int freq, int left, int right)
+{
+    tree[total].ch = ch;
+    tree[total].freq = freq;
+    tree[total].left = left;
+    tree[total].right = right;
+
+    return total++;
+}
+
+void displayCodes(int node, char code[], int level)
+{
+    if (tree[node].left == -1 && tree[node].right == -1)
+    {
+        code[level] = '\0';
+        printf("%c : %s\n", tree[node].ch, code);
+        return;
+    }
+
+    if (tree[node].left != -1)
+    {
+        code[level] = '0';
+        displayCodes(tree[node].left, code, level + 1);
+    }
+
+    if (tree[node].right != -1)
+    {
+        code[level] = '1';
+        displayCodes(tree[node].right, code, level + 1);
+    }
+}
 
 int main()
 {
-    struct Employee employee;
-    int option;
+    int n, i, j, first, second, root;
+    int freq[50], used[100] = {0};
+    char ch[50], code[50];
 
-    printf("Enter Employee ID: ");
-    scanf("%d", &employee.id);
+    printf("Enter the number of characters: ");
+    scanf("%d", &n);
 
-    printf("Enter Employee Name: ");
-    scanf(" %[^\n]", employee.name);
+    printf("Enter characters and frequencies:\n");
 
-    printf("Enter Salary: ");
-    scanf("%f", &employee.salary);
+    for (i = 0; i < n; i++)
+        scanf(" %c %d", &ch[i], &freq[i]);
 
-    printf("Enter Department: ");
-    scanf(" %[^\n]", employee.department);
+    for (i = 0; i < n; i++)
+        makeNode(ch[i], freq[i], -1, -1);
 
-    printf("\n--- Employee Details ---\n");
-    printf("ID: %d\n", employee.id);
-    printf("Name: %s\n", employee.name);
-    printf("Salary: %.2f\n", employee.salary);
-    printf("Department: %s\n", employee.department);
-
-    printf("\nDo you want to update the details? (1-Yes / 0-No): ");
-    scanf("%d", &option);
-
-    if (option == 1)
+    for (i = 0; i < n - 1; i++)
     {
-        printf("\nEnter New Name: ");
-        scanf(" %[^\n]", employee.name);
+        first = -1;
+        second = -1;
 
-        printf("Enter New Salary: ");
-        scanf("%f", &employee.salary);
+        for (j = 0; j < total; j++)
+        {
+            if (used[j] == 0)
+            {
+                if (first == -1 || tree[j].freq < tree[first].freq)
+                {
+                    second = first;
+                    first = j;
+                }
+                else if (second == -1 ||
+                         tree[j].freq < tree[second].freq)
+                {
+                    second = j;
+                }
+            }
+        }
 
-        printf("Enter New Department: ");
-        scanf(" %[^\n]", employee.department);
+        used[first] = 1;
+        used[second] = 1;
 
-        printf("\n--- Updated Employee Details ---\n");
-        printf("ID: %d\n", employee.id);
-        printf("Name: %s\n", employee.name);
-        printf("Salary: %.2f\n", employee.salary);
-        printf("Department: %s\n", employee.department);
+        root = makeNode('#',
+                        tree[first].freq + tree[second].freq,
+                        first, second);
     }
+
+    printf("Huffman Codes:\n");
+    displayCodes(root, code, 0);
 
     return 0;
 }
 
 /* OUTPUT
-Enter Employee ID: 102
-Enter Employee Name: Nandha
-Enter Salary: 42000
-Enter Department: Computer Science
+Enter the number of characters: 5
+Enter characters and frequencies:
+A 4
+B 7
+C 10
+D 15
+E 20
 
---- Employee Details ---
-ID: 102
-Name: Nandha
-Salary: 42000.00
-Department: Computer Science
-
-Do you want to update the details? (1-Yes / 0-No): 0
+Huffman Codes:
+D : 11
+E : 10
+C : 01
+A : 000
+B : 001
 
 */    
