@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 08
-DATE: 18-09-2026
+DATE: 26-08-2026
 
-**********Circular  Linkedlist.**********
+**********Circular Linkedlist**********
 
-AIM: Implementation  of  circular  linkedlist.
+AIM: Implementation of circular linkedlist.
 */
 
 /* **********ALGORITHM**********
