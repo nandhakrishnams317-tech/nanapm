@@ -16,16 +16,12 @@ Step 2: Declare a structure "node" containing data, left pointer, and right poin
 Step 3: Create a function "newNode(value)" to allocate memory for a node, assign the value, and initialize the left and right pointers to "NULL".
 Step 4: Read the number of nodes, "n", from the user.
 Step 5: If "n <= 0", display "Tree is empty" and terminate the program.
-Step 6: Repeat the following steps "n" times:
-a. Read a data value from the user.
-b. If the root is "NULL", create the root node using the given value.
-c. Otherwise, insert the new node at the first available position using level-order traversal with a queue.
-Step 7: Check whether the root is "NULL". If it is, return without performing traversal.
-Step 8: Perform inorder traversal by visiting the left subtree, displaying the root data, and visiting the right subtree.
-Step 9: Perform preorder traversal by displaying the root data, visiting the left subtree, and visiting the right subtree.
-Step 10: Perform postorder traversal by visiting the left subtree, visiting the right subtree, and displaying the root data.
-Step 11: Display the results of inorder, preorder, and postorder traversals.
-Step 12: Stop.
+Step 6: Read the data values and insert the nodes into the binary tree using level-order traversal with a queue.
+Step 7: Perform inorder traversal by visiting the left subtree, displaying the root data, and visiting the right subtree.
+Step 8: Perform preorder traversal by displaying the root data, visiting the left subtree, and visiting the right subtree.
+Step 9: Perform postorder traversal by visiting the left subtree, visiting the right subtree, and displaying the root data.
+Step 10: Display the results of inorder, preorder, and postorder traversals.
+Step 11: Stop.
 
 /* **********SOURCE CODE********** */
 
