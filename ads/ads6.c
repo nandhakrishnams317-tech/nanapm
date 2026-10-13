@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 06
-DATE: 03-08-2026
+DATE: 14-08-2026
 
-**********Queue  Using  Linkedlist**********
+**********Queue Using Linkedlist**********
 
-AIM:Implementation  of  queue  using linkedlist.
+AIM:Implementation of queue using linkedlist.
 */
 
 /* **********ALGORITHM*********
