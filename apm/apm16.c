@@ -6,8 +6,7 @@ DATE: 14-08-2026
 
 **********Employee Management System**********
 
-AIM: Create an application to manage employee data using structures. The program should allow input, display, 
-     and update employee details such as name, ID, salary, and department.
+AIM: Create an application to manage employee data using structures. The program should allow input, display,and update employee details such as name, ID, salary, and department.
 */
 
 /* **********ALGORITHM**********
