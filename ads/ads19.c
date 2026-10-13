@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 19
-DATE: 18-07-2026
+DATE: 07-10-2026
 
 **********AVL Tree**********
 
-AIM: Implementation of   AVL  tree (balanced  tree).
+AIM: Implementation of AVL tree(balanced tree).
 */
 
 /* **********ALGORITHM**********
