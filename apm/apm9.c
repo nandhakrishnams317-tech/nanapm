@@ -6,8 +6,7 @@ DATE: 03-07-2026
 
 **********Symmetry Checker for Geometric Designs**********
 
-AIM: Develop a program to check if a given design (represented as a matrix) is symmetric. This program can be 
-     useful for analyzing symmetry in architectural or geometric design patterns.
+AIM: Develop a program to check if a given design (represented as a matrix) is symmetric. This program can be useful for analyzing symmetry in architectural or geometric design patterns.
 */
 
 /* **********ALGORITHM**********
