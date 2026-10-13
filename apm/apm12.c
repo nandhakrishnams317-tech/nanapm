@@ -4,7 +4,7 @@ Roll No: CS09
 EX NO: 12
 DATE: 28-09-2026
 
-**********Text Reversal Tool for Document Review**********
+**********Text Reversal Tool For Document Review**********
 
 AIM: Write a program that checks if a document (string) is a palindrome by reversing it manually without using built-in functions. This tool could be used for reviewing documents that need to maintain symmetry.
 */
