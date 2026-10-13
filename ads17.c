@@ -4,67 +4,310 @@ Roll No: CS09
 EX NO: 17
 DATE: 18-07-2026
 
-**********Complex Number Calculator for Engineering Simulations**********
+**********Deque**********
 
-AIM: Develop a program that allows the user to input two complex numbers and calculates their sum and 
-     difference. This program could be applied in simulations for electrical engineering or physics problems.
+AIM: Implementation  of  Deque (double ended  queue). 
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Define a structure Complex containing real and imaginary parts.
-Step 3: Declare Complex variables num1, num2, sum, and difference.
-Step 4: Display a message to enter the real and imaginary parts of the first complex number.
-Step 5: Read and store the values in num1.
-Step 6: Display a message to enter the real and imaginary parts of the second complex number.
-Step 7: Read and store the values in num2.
-Step 8: Add the real parts of num1 and num2 and store the result in sum.
-Step 9: Add the imaginary parts of num1 and num2 and store the result in sum.
-Step 10: Subtract the real part of num2 from num1 and store the result in difference.
-Step 11: Subtract the imaginary part of num2 from num1 and store the result in difference.
-Step 12: Display the sum and difference of the two complex numbers.
+Step 2: Initialize the front and rear pointers to NULL.
+Step 3: Display the menu containing Insert Front, Insert Rear, Delete Front, Delete Rear, Display, and Exit options.
+Step 4: Read the user's choice.
+Step 5: If the choice is 1, create a new node and insert it at the front of the deque.
+Step 6: If the choice is 2, create a new node and insert it at the rear of the deque.
+Step 7: If the choice is 3, check whether the deque is empty. If it is not empty, delete the front node and update the front pointer.
+Step 8: If the choice is 4, check whether the deque is empty. If it is not empty, delete the rear node and update the rear pointer.
+Step 9: If the choice is 5, display all elements from front to rear.
+Step 10: If the choice is 6, display "Exiting..." and terminate the program.
+Step 11: If the choice is invalid, display "Invalid choice".
+Step 12: Repeat Steps 3 to 11 until the user selects 6.
 Step 13: Stop.
-
-*/
 
 /* **********SOURCE CODE********** */
 
-#include <stdio.h>
 
-struct Complex {
-    float real;
-    float imag;
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int value;
+    struct Node *prev, *next;
 };
+
+struct Node *start = NULL, *end = NULL;
+
+void addFront(int value)
+{
+    struct Node *newNode =
+        (struct Node *)malloc(sizeof(struct Node));
+
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed.\n");
+        return;
+    }
+
+    newNode->value = value;
+    newNode->prev = NULL;
+    newNode->next = start;
+
+    if (start == NULL)
+        start = end = newNode;
+    else
+    {
+        start->prev = newNode;
+        start = newNode;
+    }
+
+    printf("Inserted %d at the front.\n", value);
+}
+
+void addRear(int value)
+{
+    struct Node *newNode =
+        (struct Node *)malloc(sizeof(struct Node));
+
+    if (newNode == NULL)
+    {
+        printf("Memory allocation failed.\n");
+        return;
+    }
+
+    newNode->value = value;
+    newNode->next = NULL;
+    newNode->prev = end;
+
+    if (end == NULL)
+        start = end = newNode;
+    else
+    {
+        end->next = newNode;
+        end = newNode;
+    }
+
+    printf("Inserted %d at the rear.\n", value);
+}
+
+void removeFront()
+{
+    struct Node *temp;
+
+    if (start == NULL)
+    {
+        printf("Deque is empty.\n");
+        return;
+    }
+
+    temp = start;
+    printf("Deleted front element: %d\n", temp->value);
+
+    start = start->next;
+
+    if (start == NULL)
+        end = NULL;
+    else
+        start->prev = NULL;
+
+    free(temp);
+}
+
+void removeRear()
+{
+    struct Node *temp;
+
+    if (end == NULL)
+    {
+        printf("Deque is empty.\n");
+        return;
+    }
+
+    temp = end;
+    printf("Deleted rear element: %d\n", temp->value);
+
+    end = end->prev;
+
+    if (end == NULL)
+        start = NULL;
+    else
+        end->next = NULL;
+
+    free(temp);
+}
+
+void showDeque()
+{
+    struct Node *temp = start;
+
+    if (start == NULL)
+    {
+        printf("Deque is empty.\n");
+        return;
+    }
+
+    printf("Deque elements: ");
+
+    while (temp != NULL)
+    {
+        printf("%d ", temp->value);
+        temp = temp->next;
+    }
+
+    printf("\n");
+}
 
 int main()
 {
-    struct Complex num1, num2, sum, difference;
+    int choice, num;
 
-    printf("Enter real and imaginary parts of first complex number: ");
-    scanf("%f %f", &num1.real, &num1.imag);
+    do
+    {
+        printf("\n--- Deque Menu ---\n");
+        printf("1. Insert Front\n");
+        printf("2. Insert Rear\n");
+        printf("3. Delete Front\n");
+        printf("4. Delete Rear\n");
+        printf("5. Display\n");
+        printf("6. Exit\n");
 
-    printf("Enter real and imaginary parts of second complex number: ");
-    scanf("%f %f", &num2.real, &num2.imag);
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
 
-    sum.real = num1.real + num2.real;
-    sum.imag = num1.imag + num2.imag;
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &num);
+                addFront(num);
+                break;
 
-    difference.real = num1.real - num2.real;
-    difference.imag = num1.imag - num2.imag;
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &num);
+                addRear(num);
+                break;
 
-    printf("\nSum = %.2f + %.2fi", sum.real, sum.imag);
-    printf("\nDifference = %.2f + %.2fi", difference.real, difference.imag);
+            case 3:
+                removeFront();
+                break;
+
+            case 4:
+                removeRear();
+                break;
+
+            case 5:
+                showDeque();
+                break;
+
+            case 6:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid choice.\n");
+        }
+
+    } while (choice != 6);
 
     return 0;
 }
 
 /* **********OUTPUT**********
 
-Enter real and imaginary parts of first complex number: 6 4
-Enter real and imaginary parts of second complex number: 3 2
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 1
+Enter value: 25
+Inserted 25 at the front.
 
-Sum = 9.00 + 6.00i
-Difference = 3.00 + 2.00i
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 2
+Enter value: 40
+Inserted 40 at the rear.
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 2
+Enter value: 60
+Inserted 60 at the rear.
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 1
+Enter value: 10
+Inserted 10 at the front.
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 5
+Deque elements: 10 25 40 60
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 3
+Deleted front element: 10
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 4
+Deleted rear element: 60
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 5
+Deque elements: 25 40
+
+--- Deque Menu ---
+1. Insert Front
+2. Insert Rear
+3. Delete Front
+4. Delete Rear
+5. Display
+6. Exit
+Enter your choice: 6
+Exiting...
 
 */    
