@@ -4,7 +4,7 @@ Roll No: CS09
 EX NO: 04
 DATE: 05-08-2026
 
-**********Linkedlists Operations**********
+**********Linkedlists**********
 
 AIM: Implementation of linkedlists and operations on linkedlists.
 */
