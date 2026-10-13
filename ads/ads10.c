@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 10
-DATE: 29-08-2026
+DATE: 04-09-2026
 
 **********Binary Search Trees**********
 
-AIM: Implementation  of  binary  search  trees  and  perform  the    operations  on  BST. 
+AIM: Implementation of binary search trees  and  perform the operations on BST. 
 */
 
 /* **********ALGORITHM**********
