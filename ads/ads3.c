@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 03
-DATE: 19-07-2026
+DATE: 30-07-2026
 
 **********Circular  Queue  Using  Arrays.**********
 
-AIM: Implementation  of  circular  queue  using  arrays.
+AIM: Implementation of circular queue using arrays.
 */
 
 /* **********ALGORITHM**********
