@@ -6,8 +6,7 @@ DATE: 18-09-2026
 
 **********Matrix Multiplication for Image Processing**********
 
-AIM: Implement matrix multiplication to apply a transformation matrix to an image. The program should accept
-     a 2D image matrix and a transformation matrix, then output the transformed image.
+AIM: Implement matrix multiplication to apply a transformation matrix to an image. The program should accept a 2D image matrix and a transformation matrix, then output the transformed image.
 */
 
 /* **********ALGORITHM**********
