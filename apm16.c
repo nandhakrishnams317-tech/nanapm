@@ -89,7 +89,7 @@ int main()
     return 0;
 }
 
-/* OUTPUT
+/* **********OUTPUT**********
 Enter Employee ID: 102
 Enter Employee Name: Nandha
 Enter Salary: 42000
