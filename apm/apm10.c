@@ -6,8 +6,7 @@ DATE: 29-08-2026
 
 **********Permutation Generator for Password Cracking Simulation**********
 
-AIM: Write a program that generates all possible permutations of a given string, which could simulate a 
-     password-cracking tool for security testing.
+AIM: Write a program that generates all possible permutations of a given string, which could simulate a password-cracking tool for security testing.
 */
 
 /* **********ALGORITHM**********
