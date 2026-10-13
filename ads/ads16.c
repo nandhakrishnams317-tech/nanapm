@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 16
-DATE: 14-08-2026
+DATE: 30-09-2026
 
 **********Huffman Algorithm**********
 
