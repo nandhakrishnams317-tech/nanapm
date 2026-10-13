@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 04
-DATE: 06-08-2026
+DATE: 05-08-2026
 
 **********Linkedlists Operations**********
 
-AIM: Implementation  of  linkedlists  and  operations  on  linkedlists.
+AIM: Implementation of linkedlists and operations on linkedlists.
 */
 
 /* **********ALGORITHM**********
