@@ -11,147 +11,161 @@ AIM: Implementation of Priority Queue.
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Initialize the queue size to -1 and define the maximum capacity as 100.
-Step 3: Display the menu with Enqueue, Dequeue, Display, and Exit options.
-Step 4: Read the user's choice.
-Step 5: If the choice is 1, read the value and its priority. Check whether the queue is full. If space is available, insert the value and priority into the queue and increase the size.
-Step 6: If the choice is 2, check whether the queue is empty. If empty, display an underflow message.
-Step 7: Otherwise, find the element with the highest priority. If two elements have the same priority, select the element with the larger value.
-Step 8: Display and delete the selected element. Shift the remaining elements and decrease the queue size.
-Step 9: If the choice is 3, display all values and their priorities. If the queue is empty, display an empty message.
-Step 10: If the choice is 4, terminate the program.
-Step 11: If the choice is invalid, display an error message.
-Step 12: Repeat Steps 3 to 11 until the user chooses to exit.
-Step 13: Stop.
-
+Step 2: Define a structure containing the value and priority of each element. Initialize the priority queue size to zero.
+Step 3: Define a swap function to exchange two elements.
+Step 4: Define a function to compare two elements. The element with higher priority is preferred. If priorities are equal, the element with the larger value is preferred.
+Step 5: Implement the ENQUEUE operation. Read the value and priority, insert the element at the end of the heap, and compare it with its parent. Swap elements until the heap property is satisfied.
+Step 6: Implement the DEQUEUE operation. If the queue is empty, display an underflow message. Otherwise, delete the root element, replace it with the last element, and restore the heap property.
+Step 7: Implement the DISPLAY operation. If the queue is empty, display a message. Otherwise, display the value and priority of every element.
+Step 8: Display the menu and read the user's choice.
+Step 9: If the choice is 1, insert an element into the priority queue.
+Step 10: If the choice is 2, delete the highest-priority element.
+Step 11: If the choice is 3, display the priority queue.
+Step 12: If the choice is 4, terminate the program.
+Step 13: If the choice is invalid, display an error message.
+Step 14: Repeat the menu operations until the user selects Exit.
+Step 15: Stop.
 */
 
 /* **********SOURCE CODE********** */
 
-
 #include <stdio.h>
 #define MAX 100
 
-struct Item
-{
+struct Item {
     int value;
     int priority;
 };
 
 struct Item queue[MAX];
-int count = -1;
+int count = 0;
 
-void insertItem(int value, int priority)
-{
-    if (count >= MAX - 1)
-    {
+void swap(struct Item *a, struct Item *b) {
+    struct Item temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int higherPriority(struct Item a, struct Item b) {
+    if (a.priority == b.priority)
+        return a.value > b.value;
+
+    return a.priority > b.priority;
+}
+
+void enqueue(int value, int priority) {
+    if (count == MAX) {
         printf("Priority Queue Overflow!\n");
         return;
     }
 
+    int i = count;
+
+    queue[i].value = value;
+    queue[i].priority = priority;
     count++;
-    queue[count].value = value;
-    queue[count].priority = priority;
-}
 
-int findHighest()
-{
-    int high = -1089203;
-    int index = -1;
+    while (i > 0) {
+        int parent = (i - 1) / 2;
 
-    for (int i = 0; i <= count; i++)
-    {
-        if (queue[i].priority == high &&
-            index != -1 &&
-            queue[i].value > queue[index].value)
-        {
-            high = queue[i].priority;
-            index = i;
-        }
-        else if (queue[i].priority > high)
-        {
-            high = queue[i].priority;
-            index = i;
+        if (higherPriority(queue[i], queue[parent])) {
+            swap(&queue[i], &queue[parent]);
+            i = parent;
+        } else {
+            break;
         }
     }
-
-    return index;
 }
 
-void removeItem()
-{
-    if (count < 0)
-    {
+void dequeue() {
+    if (count == 0) {
         printf("Priority Queue Underflow!\n");
         return;
     }
 
-    int index = findHighest();
+    printf("Removed value: %d\n", queue[0].value);
 
-    printf("Deleted element: %d\n", queue[index].value);
-
-    for (int i = index; i < count; i++)
-    {
-        queue[i] = queue[i + 1];
-    }
-
+    queue[0] = queue[count - 1];
     count--;
+
+    int i = 0;
+
+    while (1) {
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        int largest = i;
+
+        if (left < count &&
+            higherPriority(queue[left], queue[largest])) {
+            largest = left;
+        }
+
+        if (right < count &&
+            higherPriority(queue[right], queue[largest])) {
+            largest = right;
+        }
+
+        if (largest != i) {
+            swap(&queue[i], &queue[largest]);
+            i = largest;
+        } else {
+            break;
+        }
+    }
 }
 
-void showQueue()
-{
-    if (count < 0)
-    {
-        printf("Priority Queue is empty!\n");
+void display() {
+    if (count == 0) {
+        printf("No elements in the queue!\n");
         return;
     }
 
-    for (int i = 0; i <= count; i++)
-    {
-        printf("Value: %d, Priority: %d\n",
-               queue[i].value, queue[i].priority);
+    printf("Value\tPriority\n");
+
+    for (int i = 0; i < count; i++) {
+        printf("%d\t%d\n", queue[i].value, queue[i].priority);
     }
 }
 
-int main()
-{
+int main() {
     int choice, num, pri;
 
-    while (1)
-    {
-        printf("\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
-        printf("Enter choice: ");
+    while (1) {
+        printf("\n1. Insert\n2. Delete\n");
+        printf("3. Display\n4. Exit\n");
+        printf("Enter your choice: ");
 
         if (scanf("%d", &choice) != 1)
             break;
 
-        switch (choice)
-        {
+        switch (choice) {
             case 1:
                 printf("Enter value and priority: ");
-                scanf("%d %d", &num, &pri);
-                insertItem(num, pri);
+
+                if (scanf("%d %d", &num, &pri) != 2)
+                    return 0;
+
+                enqueue(num, pri);
                 break;
 
             case 2:
-                removeItem();
+                dequeue();
                 break;
 
             case 3:
-                showQueue();
+                display();
                 break;
 
             case 4:
                 return 0;
 
             default:
-                printf("Invalid choice!\n");
+                printf("Wrong choice!\n");
         }
     }
 
     return 0;
 }
-
 
 /* **********OUTPUT**********
 
@@ -160,7 +174,7 @@ int main()
 3. Display
 4. Exit
 Enter choice: 1
-Enter value and priority: 40 3
+Enter value and priority: 35 2
 
 1. Enqueue
 2. Dequeue
@@ -174,24 +188,25 @@ Enter value and priority: 60 5
 3. Display
 4. Exit
 Enter choice: 1
-Enter value and priority: 25 2
+Enter value and priority: 25 3
 
 1. Enqueue
 2. Dequeue
 3. Display
 4. Exit
 Enter choice: 1
-Enter value and priority: 80 4
+Enter value and priority: 45 4
 
 1. Enqueue
 2. Dequeue
 3. Display
 4. Exit
 Enter choice: 3
-Value: 40, Priority: 3
-Value: 60, Priority: 5
-Value: 25, Priority: 2
-Value: 80, Priority: 4
+Value   Priority
+60      5
+45      4
+25      3
+35      2
 
 1. Enqueue
 2. Dequeue
@@ -205,9 +220,10 @@ Deleted element: 60
 3. Display
 4. Exit
 Enter choice: 3
-Value: 40, Priority: 3
-Value: 25, Priority: 2
-Value: 80, Priority: 4
+Value   Priority
+45      4
+35      2
+25      3
 
 1. Enqueue
 2. Dequeue
