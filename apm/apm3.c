@@ -6,8 +6,7 @@ DATE: 19-07-2026
 
 **********Efficient Prime Number Generation**********
 
-AIM: Implement the Sieve of Eratosthenes algorithm to generate a list of prime numbers up to a specified upper 
-     limit (e.g., 10,000). This list will be used for efficient lookups in a mathematical application.
+AIM: Implement the Sieve of Eratosthenes algorithm to generate a list of prime numbers up to a specified upper limit (e.g., 10,000). This list will be used for efficient lookups in a mathematical application.
 */
 
 /* **********ALGORITHM**********
