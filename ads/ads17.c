@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 17
-DATE: 18-07-2026
+DATE: 05-10-2026
 
 **********Deque**********
 
-AIM: Implementation  of  Deque (double ended  queue). 
+AIM: Implementation of Deque(double ended  queue). 
 */
 
 /* **********ALGORITHM**********
