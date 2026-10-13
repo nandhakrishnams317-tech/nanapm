@@ -1,7 +1,7 @@
 /*
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
-EX NO: 9
+EX NO: 09
 DATE: 01-09-2026
 
 **********Binary Tree And Traversals.**********
