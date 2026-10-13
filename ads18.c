@@ -1,149 +1,153 @@
 /*
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
-EX NO: 15
+EX NO: 18
 DATE: 18-07-2026
 
-**********Heap Tree********** 
-AIM: Implementation of heap tree and operations.
+**********Priority Queue********** 
+AIM: Implementation of Priority Queue.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Initialize the heap array and set the heap size to 0.
-Step 3: Display the menu containing Insert, Delete Root, Display, and Exit options.
+Step 2: Initialize the queue size to -1 and define the maximum capacity as 100.
+Step 3: Display the menu with Enqueue, Dequeue, Display, and Exit options.
 Step 4: Read the user's choice.
-Step 5: If the choice is 1, check whether the heap is full. If space is available, read a value, insert it into the heap, and swap it with its parent while it is greater than the parent.
-Step 6: If the choice is 2, check whether the heap is empty. If it is not empty, delete the root element, replace it with the last element, decrease the heap size, and rearrange the elements to maintain the max heap property.
-Step 7: If the choice is 3, display all heap elements. If the heap is empty, display "Heap is empty".
-Step 8: If the choice is 4, display "Exiting..." and terminate the program.
-Step 9: If the choice is invalid, display "Invalid choice".
-Step 10: Repeat Steps 3 to 9 until the user selects 4.
-Step 11: Stop.
+Step 5: If the choice is 1, read the value and its priority. Check whether the queue is full. If space is available, insert the value and priority into the queue and increase the size.
+Step 6: If the choice is 2, check whether the queue is empty. If empty, display an underflow message.
+Step 7: Otherwise, find the element with the highest priority. If two elements have the same priority, select the element with the larger value.
+Step 8: Display and delete the selected element. Shift the remaining elements and decrease the queue size.
+Step 9: If the choice is 3, display all values and their priorities. If the queue is empty, display an empty message.
+Step 10: If the choice is 4, terminate the program.
+Step 11: If the choice is invalid, display an error message.
+Step 12: Repeat Steps 3 to 11 until the user chooses to exit.
+Step 13: Stop.
 
 */
 
 /* **********SOURCE CODE********** */
 
+
 #include <stdio.h>
+#define MAX 100
 
-int heap[100], size = 0;
-
-void insertValue(int value)
+struct Item
 {
-    int pos, temp;
+    int value;
+    int priority;
+};
 
-    heap[size] = value;
-    pos = size;
-    size++;
+struct Item queue[MAX];
+int count = -1;
 
-    while (pos > 0 && heap[(pos - 1) / 2] < heap[pos])
-    {
-        temp = heap[pos];
-        heap[pos] = heap[(pos - 1) / 2];
-        heap[(pos - 1) / 2] = temp;
-
-        pos = (pos - 1) / 2;
-    }
-}
-
-void removeRoot()
+void insertItem(int value, int priority)
 {
-    int pos = 0, left, right, max, temp;
-
-    if (size == 0)
+    if (count >= MAX - 1)
     {
-        printf("Heap is empty\n");
+        printf("Priority Queue Overflow!\n");
         return;
     }
 
-    printf("Deleted element: %d\n", heap[0]);
-
-    heap[0] = heap[size - 1];
-    size--;
-
-    while (1)
-    {
-        left = 2 * pos + 1;
-        right = 2 * pos + 2;
-        max = pos;
-
-        if (left < size && heap[left] > heap[max])
-            max = left;
-
-        if (right < size && heap[right] > heap[max])
-            max = right;
-
-        if (max == pos)
-            break;
-
-        temp = heap[pos];
-        heap[pos] = heap[max];
-        heap[max] = temp;
-
-        pos = max;
-    }
+    count++;
+    queue[count].value = value;
+    queue[count].priority = priority;
 }
 
-void displayHeap()
+int findHighest()
 {
-    int i;
+    int high = -1089203;
+    int index = -1;
 
-    if (size == 0)
+    for (int i = 0; i <= count; i++)
     {
-        printf("Heap is empty\n");
+        if (queue[i].priority == high &&
+            index != -1 &&
+            queue[i].value > queue[index].value)
+        {
+            high = queue[i].priority;
+            index = i;
+        }
+        else if (queue[i].priority > high)
+        {
+            high = queue[i].priority;
+            index = i;
+        }
+    }
+
+    return index;
+}
+
+void removeItem()
+{
+    if (count < 0)
+    {
+        printf("Priority Queue Underflow!\n");
         return;
     }
 
-    printf("Heap elements: ");
+    int index = findHighest();
 
-    for (i = 0; i < size; i++)
-        printf("%d ", heap[i]);
+    printf("Deleted element: %d\n", queue[index].value);
 
-    printf("\n");
+    for (int i = index; i < count; i++)
+    {
+        queue[i] = queue[i + 1];
+    }
+
+    count--;
+}
+
+void showQueue()
+{
+    if (count < 0)
+    {
+        printf("Priority Queue is empty!\n");
+        return;
+    }
+
+    for (int i = 0; i <= count; i++)
+    {
+        printf("Value: %d, Priority: %d\n",
+               queue[i].value, queue[i].priority);
+    }
 }
 
 int main()
 {
-    int choice, num;
+    int choice, num, pri;
 
-    do
+    while (1)
     {
-        printf("\n1. Insert\n2. Delete Root\n3. Display\n4. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+        printf("\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
+        printf("Enter choice: ");
+
+        if (scanf("%d", &choice) != 1)
+            break;
 
         switch (choice)
         {
             case 1:
-                if (size >= 100)
-                    printf("Heap is full\n");
-                else
-                {
-                    printf("Enter the value: ");
-                    scanf("%d", &num);
-                    insertValue(num);
-                }
+                printf("Enter value and priority: ");
+                scanf("%d %d", &num, &pri);
+                insertItem(num, pri);
                 break;
 
             case 2:
-                removeRoot();
+                removeItem();
                 break;
 
             case 3:
-                displayHeap();
+                showQueue();
                 break;
 
             case 4:
-                printf("Exiting...\n");
-                break;
+                return 0;
 
             default:
-                printf("Invalid choice\n");
+                printf("Invalid choice!\n");
         }
-
-    } while (choice != 4);
+    }
 
     return 0;
 }
@@ -151,60 +155,64 @@ int main()
 
 /* **********OUTPUT**********
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 1
-Enter the value: 50
+Enter choice: 1
+Enter value and priority: 40 3
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 1
-Enter the value: 30
+Enter choice: 1
+Enter value and priority: 60 5
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 1
-Enter the value: 70
+Enter choice: 1
+Enter value and priority: 25 2
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 1
-Enter the value: 20
+Enter choice: 1
+Enter value and priority: 80 4
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 3
-Heap elements: 70 30 50 20
+Enter choice: 3
+Value: 40, Priority: 3
+Value: 60, Priority: 5
+Value: 25, Priority: 2
+Value: 80, Priority: 4
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 2
-Deleted element: 70
+Enter choice: 2
+Deleted element: 60
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 3
-Heap elements: 50 30 20
+Enter choice: 3
+Value: 40, Priority: 3
+Value: 25, Priority: 2
+Value: 80, Priority: 4
 
-1. Insert
-2. Delete Root
+1. Enqueue
+2. Dequeue
 3. Display
 4. Exit
-Enter your choice: 4
-Exiting...
+Enter choice: 4
 
 */    
