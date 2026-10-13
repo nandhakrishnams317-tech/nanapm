@@ -2,11 +2,11 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 05
-DATE: 23-07-2026
+DATE: 11-08-2026
 
-**********Stacks  Using  linkedlist**********
+**********Stacks Using linkedlist**********
 
-AIM: Implementation  of  stacks  using  linkedlist
+AIM: Implementation of stacks  using  linkedlist
 */
 
 /* **********ALGORITHM**********
