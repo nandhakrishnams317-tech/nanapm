@@ -6,8 +6,7 @@ DATE: 25-09-2026
 
 **********Text Editor: Substring Insertion**********
 
-AIM: Create a text editor program that allows a user to insert a given substring at a specified position within an 
-     existing string of text. This tool can help in editing and updating documents or code.
+AIM: Create a text editor program that allows a user to insert a given substring at a specified position within an existing string of text. This tool can help in editing and updating documents or code.
 */
 
 /* **********ALGORITHM**********
