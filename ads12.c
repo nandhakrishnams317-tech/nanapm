@@ -4,27 +4,24 @@ Roll No: CS09
 EX NO: 12
 DATE: 28-09-2026
 
-**********Text Reversal Tool for Document Review**********
+**********Heap Sort**********
 
-AIM: Write a program that checks if a document (string) is a palindrome by reversing it manually without using 
-     built-in functions. This tool could be used for reviewing documents that need to maintain symmetry.
+AIM: Implementation  of  heap  sort.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Declare character arrays text and reverse, and integer variables pos, length, and flag.
-Step 3: Read the document string from the user.
-Step 4: Calculate the length of the string manually using a while loop.
-Step 5: Copy the characters of the string in reverse order into the reverse array.
-Step 6: Add '\0' at the end of the reversed string.
-Step 7: Compare the original and reversed strings character by character.
-Step 8: If any two characters are different, set flag to 0.
-Step 9: Display the reversed document.
-Step 10: Check the value of flag.
-Step 11: If flag is 1, display that the document is a palindrome.
-Step 12: Otherwise, display that the document is not a palindrome.
-Step 13: Stop.
+Step 2: Read the number of elements, "n".
+Step 3: Read "n" elements into the array "arr".
+Step 4: Call the function "heapSort(arr, n)" to sort the elements.
+Step 5: In the "heapSort()" function, construct a max heap by calling "heapify()" for each non-leaf node, starting from "n/2 - 1" and moving backward to "0".
+Step 6: Exchange the first element of the heap with the last element.
+Step 7: Reduce the heap size by one.
+Step 8: Call "heapify()" to restore the max heap property.
+Step 9: Repeat steps 6 to 8 until only one element remains in the heap.
+Step 10: Display the sorted array.
+Step 11: Stop.
 
 */
 
@@ -32,46 +29,82 @@ Step 13: Stop.
 
 #include <stdio.h>
 
+void swap(int *x, int *y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+void heapify(int arr[], int size, int root)
+{
+    int largest = root;
+    int left = 2 * root + 1;
+    int right = 2 * root + 2;
+
+    if (left < size && arr[left] > arr[largest])
+        largest = left;
+
+    if (right < size && arr[right] > arr[largest])
+        largest = right;
+
+    if (largest != root)
+    {
+        swap(&arr[root], &arr[largest]);
+        heapify(arr, size, largest);
+    }
+}
+
+void heapSort(int arr[], int n)
+{
+    int i;
+
+    for (i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    for (i = n - 1; i > 0; i--)
+    {
+        swap(&arr[0], &arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
 int main()
 {
-    char text[100], reverse[100];
-    int pos, length = 0;
-    int flag = 1;
+    int arr[100], n, i;
 
-    printf("Enter a document: ");
-    scanf("%s", text);
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
 
-    while (text[length] != '\0')
-        length++;
-
-    for (pos = 0; pos < length; pos++)
-        reverse[pos] = text[length - pos - 1];
-
-    reverse[length] = '\0';
-
-    for (pos = 0; pos < length; pos++)
+    if (n <= 0 || n > 100)
     {
-        if (text[pos] != reverse[pos])
-        {
-            flag = 0;
-            break;
-        }
+        printf("Invalid number of elements\n");
+        return 0;
     }
 
-    printf("Reversed document: %s\n", reverse);
+    printf("Enter the elements:\n");
 
-    if (flag == 1)
-        printf("The document is a palindrome.\n");
-    else
-        printf("The document is not a palindrome.\n");
+    for (i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    heapSort(arr, n);
+
+    printf("Sorted array:\n");
+
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+
+    printf("\n");
 
     return 0;
 }
 
 /* **********OUTPUT**********
 
-Enter a document: level
-Reversed document: level
-The document is a palindrome.
+Enter number of elements: 5
+Enter the elements:
+45 12 78 23 56
+Sorted array:
+12 23 45 56 78
 
 */
