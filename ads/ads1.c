@@ -6,7 +6,7 @@ DATE: 21-07-2026
 
 **********Stacks Using Arrays**********
 
-AIM: Implementation  of  stacks  using  arrays
+AIM: Implementation of stacks using arrays
 */
 
 /* **********ALGORITHM**********
