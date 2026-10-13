@@ -6,8 +6,7 @@ DATE: 28-09-2026
 
 **********Prime Number Finder for Data Processing**********
 
-AIM: Write a program that scans a list of numbers and identifies which ones are prime. It should store the prime 
-     numbers separately for further processing.
+AIM: Write a program that scans a list of numbers and identifies which ones are prime. It should store the prime numbers separately for further processing.
 */
 
 /* **********ALGORITHM**********
