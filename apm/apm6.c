@@ -6,8 +6,8 @@ DATE: 03-08-2026
 
 **********Dynamic Data Display(Patterns)**********
 
-AIM: •        Develop an application that displays Pascal's Triangle dynamically based on user input for the number of rows.
-     •        Also, create a pattern generator (e.g., number or star pattern) that can be customized with user input.
+AIM: • Develop an application that displays Pascal's Triangle dynamically based on user input for the number of rows.
+     • Also, create a pattern generator (e.g., number or star pattern) that can be customized with user input.
 */
 
 /* **********ALGORITHM*********
