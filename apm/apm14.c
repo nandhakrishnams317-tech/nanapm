@@ -6,8 +6,7 @@ DATE: 26-09-2026
 
 **********Recursion-Based Sentence Reversal for Voice Transcription**********
 
-AIM: Write a program that reverses the words of a sentence, using recursion. This could be applied in a speech-
-     to-text application where the order of words needs to be reversed for analysis.
+AIM: Write a program that reverses the words of a sentence, using recursion. This could be applied in a speech-to-text application where the order of words needs to be reversed for analysis.
 */
 
 /* **********ALGORITHM**********
