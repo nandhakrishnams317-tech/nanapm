@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 15
-DATE: 18-07-2026
+DATE: 25-09-2026
 
 **********Heap Tree********** 
 AIM: Implementation of heap tree and operations.
