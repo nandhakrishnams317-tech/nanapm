@@ -6,8 +6,7 @@ DATE: 23-07-2026
 
 **********Data Cleaning Utility: Remove Duplicates**********
 
-AIM: Create a program that takes a list of customer email addresses (stored in an array) and removes any 
-     duplicates, ensuring that each email address is only represented once.
+AIM: Create a program that takes a list of customer email addresses (stored in an array) and removes any duplicates, ensuring that each email address is only represented once.
 */
 
 /* **********ALGORITHM**********
