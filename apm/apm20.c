@@ -2,184 +2,117 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 20
-DATE: 09-10-2026
+DATE: 05-10-2026
 
-**********Hashing**********
+**********File Merging**********
 
-AIM: Implementation of Hashing using Separate Chaining
+AIM: Create a program that merges the contents of two or more text files into a single file. This could be applied in scenarios such as aggregating log files or combining reports for analysis.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Declare a hash table of size SIZE and initialize all its elements to NULL.
-Step 3: Define a hash function that calculates the index using key % SIZE.
-Step 4: Implement the INSERT operation. Read the value to be inserted and calculate its hash index. Create a new node containing the value. If the index is empty, store the node there; otherwise, insert it at the end of the linked list.
-Step 5: Implement the DISPLAY operation. Visit every index in the hash table and display all linked-list elements. Print NULL for empty indexes and after the last node.
-Step 6: Display the menu and read the user's choice.
-Step 7: If the choice is 1, insert a value into the hash table.
-Step 8: If the choice is 2, display the hash table.
-Step 9: If the choice is 3, terminate the program.
-Step 10: If the choice is invalid, display an error message.
-Step 11: Repeat the menu operations until the user selects Exit.
-Step 12: Stop.
+Step 2: Read the number of input files to merge.
+Step 3: Check whether at least two input files are specified.
+Step 4: Read the name of the output file.
+Step 5: Open the output file in write mode.
+Step 6: Repeat the following steps for each input file.
+Step 7: Read the input filename from the user.
+Step 8: Open the input file in read mode. If it cannot be opened, display a warning and continue with the next file.
+Step 9: Write a header containing the input filename into the output file.
+Step 10: Read each character from the input file and write it into the output file until EOF is reached.
+Step 11: Write an ending separator and close the input file.
+Step 12: Close the output file after processing all input files.
+Step 13: Display a success message.
+Step 14: Stop.
 */
 
 /* **********SOURCE CODE********** */
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 10
+int main() {
+    int fileCount;
+    char resultFile[100];
 
-struct Node
-{
-    int value;
-    struct Node *next;
-};
+    printf("Enter number of files to merge: ");
+    scanf("%d", &fileCount);
 
-struct Node *table[SIZE];
-
-void initializeTable()
-{
-    int i;
-
-    for (i = 0; i < SIZE; i++)
-        table[i] = NULL;
-}
-
-int hashFunction(int key)
-{
-    return key % SIZE;
-}
-
-void insertValue(int key)
-{
-    int index = hashFunction(key);
-    struct Node *newNode, *current;
-
-    newNode = (struct Node *)malloc(sizeof(struct Node));
-
-    if (newNode == NULL)
-    {
-        printf("Memory allocation failed\n");
-        return;
+    if (fileCount <= 1) {
+        printf("Error: Need at least 2 files to merge.\n");
+        return 1;
     }
 
-    newNode->value = key;
-    newNode->next = NULL;
+    printf("Enter output aggregated filename: ");
+    scanf("%99s", resultFile);
 
-    if (table[index] == NULL)
-    {
-        table[index] = newNode;
-    }
-    else
-    {
-        current = table[index];
+    FILE *output = fopen(resultFile, "w");
 
-        while (current->next != NULL)
-            current = current->next;
-
-        current->next = newNode;
+    if (output == NULL) {
+        perror("Error opening output file");
+        return 1;
     }
 
-    printf("Inserted %d at index %d\n", key, index);
-}
+    char inputName[100];
 
-void displayTable()
-{
-    int i;
-    struct Node *current;
+    for (int index = 0; index < fileCount; index++) {
+        printf("Enter source file %d name: ", index + 1);
+        scanf("%99s", inputName);
 
-    for (i = 0; i < SIZE; i++)
-    {
-        printf("Index %d: ", i);
-        current = table[i];
+        FILE *input = fopen(inputName, "r");
 
-        while (current != NULL)
-        {
-            printf("%d -> ", current->value);
-            current = current->next;
+        if (input == NULL) {
+            perror("Warning: Could not open source file. Skipping");
+            continue;
         }
 
-        printf("NULL\n");
-    }
-}
+        fprintf(output, "\n--- Start of File: %s ---\n", inputName);
 
-int main()
-{
-    int choice, number;
+        int character;
 
-    initializeTable();
-
-    while (1)
-    {
-        printf("\n1. Insert\n2. Display\n3. Exit\n");
-        printf("Enter choice: ");
-        scanf("%d", &choice);
-
-        switch (choice)
-        {
-            case 1:
-                printf("Enter value: ");
-                scanf("%d", &number);
-                insertValue(number);
-                break;
-
-            case 2:
-                displayTable();
-                break;
-
-            case 3:
-                return 0;
-
-            default:
-                printf("Invalid choice!\n");
+        while ((character = fgetc(input)) != EOF) {
+            fputc(character, output);
         }
+
+        fprintf(output, "\n--- End of File: %s ---\n", inputName);
+
+        fclose(input);
     }
+
+    fclose(output);
+
+    printf("Successfully merged %d files into '%s'.\n",
+           fileCount, resultFile);
 
     return 0;
 }
 
 /* **********OUTPUT**********
 
-1. Insert
-2. Display
-3. Exit
-Enter choice: 1
-Enter value: 12
-Inserted 12 at index 2
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file1.txt
+This is the first file.
 
-1. Insert
-2. Display
-3. Exit
-Enter choice: 1
-Enter value: 22
-Inserted 22 at index 2
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file2.txt
+This is the second file.
 
-1. Insert
-2. Display
-3. Exit
-Enter choice: 1
-Enter value: 17
-Inserted 17 at index 7
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ ./a.out
+Enter number of files to merge: 2
+Enter output aggregated filename: file3.txt
+Enter source file 1 name: file1.txt
+Enter source file 2 name: file2.txt
+Successfully merged 2 files into 'file3.txt'.
 
-1. Insert
-2. Display
-3. Exit
-Enter choice: 2
-Index 0: NULL
-Index 1: NULL
-Index 2: 12 -> 22 -> NULL
-Index 3: NULL
-Index 4: NULL
-Index 5: NULL
-Index 6: NULL
-Index 7: 17 -> NULL
-Index 8: NULL
-Index 9: NULL
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file3.txt
 
-1. Insert
-2. Display
-3. Exit
-Enter choice: 3
+--- Start of File: file1.txt ---
+This is the first file.
+
+--- End of File: file1.txt ---
+
+--- Start of File: file2.txt ---
+This is the second file.
+
+--- End of File: file2.txt ---
+
 */
