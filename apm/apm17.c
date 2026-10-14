@@ -70,12 +70,13 @@ int main(int argc, char *argv[]) {
 
 /* **********OUTPUT**********
 
-
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file1.txt file2.txt
+Contents of file1.txt:
 This is always the starting file.
+
+Contents of file2.txt:
 This is always the second file.
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ ./a.out file1.txt file2.txt
 File data successfully copied from 'file1.txt' to 'file2.txt'.
+
 
 */    
