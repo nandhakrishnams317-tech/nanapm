@@ -122,16 +122,17 @@ int main() {
 
 /* **********OUTPUT**********
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file1.txt
+
+Contents of file1.txt:
 This is always the starting file.
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ ./a.out
 Enter source file name: file1.txt
 Enter destination file name: file2.txt
 Enter number of characters to reverse (n): 10
 Successfully reversed first 10 characters and written to 'file2.txt'.
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file2.txt
+Contents of file2.txt:
 la syaw si sihT the starting file.
+
 
 */    
