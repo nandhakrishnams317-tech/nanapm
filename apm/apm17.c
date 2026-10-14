@@ -67,7 +67,6 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-
 /* **********OUTPUT**********
 
 Contents of file1.txt:
