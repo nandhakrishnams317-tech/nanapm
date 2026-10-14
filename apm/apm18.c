@@ -2,7 +2,7 @@
 NAME: NANDHA KRISHNA M S
 Roll No: CS09
 EX NO: 18
-DATE: 06-10-2026
+DATE: 03-10-2026
 
 **********String Reversal and Insertion********** 
 AIM: Develop a program that takes a text file, reverses the content of the first 'n' characters, and writes the result to another file. This could be useful for data manipulation or encryption tasks.
