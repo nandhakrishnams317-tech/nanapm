@@ -4,231 +4,134 @@ Roll No: CS09
 EX NO: 18
 DATE: 06-10-2026
 
-**********Priority Queue********** 
-AIM: Implementation of Priority Queue.
+**********String Reversal and Insertion********** 
+AIM: Develop a program that takes a text file, reverses the content of the first 'n' characters, and writes the result to another file. This could be useful for data manipulation or encryption tasks.
 */
 
 /* **********ALGORITHM**********
 
 Step 1: Start.
-Step 2: Define a structure containing the value and priority of each element. Initialize the priority queue size to zero.
-Step 3: Define a swap function to exchange two elements.
-Step 4: Define a function to compare two elements. The element with higher priority is preferred. If priorities are equal, the element with the larger value is preferred.
-Step 5: Implement the ENQUEUE operation. Read the value and priority, insert the element at the end of the heap, and compare it with its parent. Swap elements until the heap property is satisfied.
-Step 6: Implement the DEQUEUE operation. If the queue is empty, display an underflow message. Otherwise, delete the root element, replace it with the last element, and restore the heap property.
-Step 7: Implement the DISPLAY operation. If the queue is empty, display a message. Otherwise, display the value and priority of every element.
-Step 8: Display the menu and read the user's choice.
-Step 9: If the choice is 1, insert an element into the priority queue.
-Step 10: If the choice is 2, delete the highest-priority element.
-Step 11: If the choice is 3, display the priority queue.
-Step 12: If the choice is 4, terminate the program.
-Step 13: If the choice is invalid, display an error message.
-Step 14: Repeat the menu operations until the user selects Exit.
-Step 15: Stop.
+Step 2: Read the source file name, destination file name, and number of characters n from the user.
+Step 3: Check whether n is greater than zero. Display an error message if it is not.
+Step 4: Open the source file in read mode.
+Step 5: Check whether the source file is opened successfully.
+Step 6: Open the destination file in write mode and check whether it is opened successfully.
+Step 7: Allocate memory dynamically to store the first n characters.
+Step 8: Read up to n characters from the source file and record the actual number of characters read.
+Step 9: Reverse the characters in the buffer using a two-pointer approach.
+Step 10: Write the reversed characters into the destination file.
+Step 11: Copy the remaining characters from the source file to the destination file without changing their order.
+Step 12: Display a success message.
+Step 13: Free the allocated memory and close both files.
+Step 14: Stop.
+
 */
 
 /* **********SOURCE CODE********** */
 
 #include <stdio.h>
-#define MAX 100
-
-struct Item {
-    int value;
-    int priority;
-};
-
-struct Item queue[MAX];
-int count = 0;
-
-void swap(struct Item *a, struct Item *b) {
-    struct Item temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-int higherPriority(struct Item a, struct Item b) {
-    if (a.priority == b.priority)
-        return a.value > b.value;
-
-    return a.priority > b.priority;
-}
-
-void enqueue(int value, int priority) {
-    if (count == MAX) {
-        printf("Priority Queue Overflow!\n");
-        return;
-    }
-
-    int i = count;
-
-    queue[i].value = value;
-    queue[i].priority = priority;
-    count++;
-
-    while (i > 0) {
-        int parent = (i - 1) / 2;
-
-        if (higherPriority(queue[i], queue[parent])) {
-            swap(&queue[i], &queue[parent]);
-            i = parent;
-        } else {
-            break;
-        }
-    }
-}
-
-void dequeue() {
-    if (count == 0) {
-        printf("Priority Queue Underflow!\n");
-        return;
-    }
-
-    printf("Removed value: %d\n", queue[0].value);
-
-    queue[0] = queue[count - 1];
-    count--;
-
-    int i = 0;
-
-    while (1) {
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
-        int largest = i;
-
-        if (left < count &&
-            higherPriority(queue[left], queue[largest])) {
-            largest = left;
-        }
-
-        if (right < count &&
-            higherPriority(queue[right], queue[largest])) {
-            largest = right;
-        }
-
-        if (largest != i) {
-            swap(&queue[i], &queue[largest]);
-            i = largest;
-        } else {
-            break;
-        }
-    }
-}
-
-void display() {
-    if (count == 0) {
-        printf("No elements in the queue!\n");
-        return;
-    }
-
-    printf("Value\tPriority\n");
-
-    for (int i = 0; i < count; i++) {
-        printf("%d\t%d\n", queue[i].value, queue[i].priority);
-    }
-}
+#include <stdlib.h>
+#include <string.h>
 
 int main() {
-    int choice, num, pri;
+    char inputFile[100], outputFile[100];
+    int limit;
 
-    while (1) {
-        printf("\n1. Insert\n2. Delete\n");
-        printf("3. Display\n4. Exit\n");
-        printf("Enter your choice: ");
+    printf("Enter source file name: ");
+    scanf("%99s", inputFile);
 
-        if (scanf("%d", &choice) != 1)
+    printf("Enter destination file name: ");
+    scanf("%99s", outputFile);
+
+    printf("Enter number of characters to reverse (n): ");
+    scanf("%d", &limit);
+
+    if (limit <= 0) {
+        printf("Error: 'n' must be greater than 0.\n");
+        return 1;
+    }
+
+    FILE *inFile = fopen(inputFile, "r");
+
+    if (inFile == NULL) {
+        perror("Error opening source file");
+        return 1;
+    }
+
+    FILE *outFile = fopen(outputFile, "w");
+
+    if (outFile == NULL) {
+        perror("Error opening destination file");
+        fclose(inFile);
+        return 1;
+    }
+
+    char *textBuffer = (char *)malloc((limit + 1) * sizeof(char));
+
+    if (textBuffer == NULL) {
+        perror("Memory allocation failed");
+        fclose(inFile);
+        fclose(outFile);
+        return 1;
+    }
+
+    int count = 0;
+
+    while (count < limit) {
+        int value = fgetc(inFile);
+
+        if (value == EOF)
             break;
 
-        switch (choice) {
-            case 1:
-                printf("Enter value and priority: ");
-
-                if (scanf("%d %d", &num, &pri) != 2)
-                    return 0;
-
-                enqueue(num, pri);
-                break;
-
-            case 2:
-                dequeue();
-                break;
-
-            case 3:
-                display();
-                break;
-
-            case 4:
-                return 0;
-
-            default:
-                printf("Wrong choice!\n");
-        }
+        textBuffer[count] = (char)value;
+        count++;
     }
+
+    textBuffer[count] = '\0';
+
+    int left = 0;
+    int right = count - 1;
+
+    while (left < right) {
+        char temp = textBuffer[left];
+        textBuffer[left] = textBuffer[right];
+        textBuffer[right] = temp;
+
+        left++;
+        right--;
+    }
+
+    fputs(textBuffer, outFile);
+
+    int value;
+
+    while ((value = fgetc(inFile)) != EOF) {
+        fputc(value, outFile);
+    }
+
+    printf("Successfully reversed first %d characters and written to '%s'.\n",
+           count, outputFile);
+
+    free(textBuffer);
+    fclose(inFile);
+    fclose(outFile);
 
     return 0;
 }
 
+
 /* **********OUTPUT**********
 
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 1
-Enter value and priority: 35 2
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file1.txt
+This is always the starting file.
 
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 1
-Enter value and priority: 60 5
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ ./a.out
+Enter source file name: file1.txt
+Enter destination file name: file2.txt
+Enter number of characters to reverse (n): 10
+Successfully reversed first 10 characters and written to 'file2.txt'.
 
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 1
-Enter value and priority: 25 3
-
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 1
-Enter value and priority: 45 4
-
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 3
-Value   Priority
-60      5
-45      4
-25      3
-35      2
-
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 2
-Deleted element: 60
-
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 3
-Value   Priority
-45      4
-35      2
-25      3
-
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Enter choice: 4
+CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file2.txt
+la syaw si sihT the starting file.
 
 */    
