@@ -90,20 +90,14 @@ int main() {
 
 /* **********OUTPUT**********
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file1.txt
-This is the first file.
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file2.txt
-This is the second file.
-
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ ./a.out
 Enter number of files to merge: 2
 Enter output aggregated filename: file3.txt
 Enter source file 1 name: file1.txt
 Enter source file 2 name: file2.txt
 Successfully merged 2 files into 'file3.txt'.
 
-CS2024PG01@csserver:~/pg2026/apm/lablist-apm$ cat file3.txt
+Contents of file3.txt:
 
 --- Start of File: file1.txt ---
 This is the first file.
