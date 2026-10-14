@@ -122,7 +122,6 @@ int main() {
 
 /* **********OUTPUT**********
 
-
 Contents of file1.txt:
 This is always the starting file.
 
