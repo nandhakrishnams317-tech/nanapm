@@ -1,19 +1,44 @@
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int main(void)
 {
+    printf("Parent: PID = %d\n", getpid());
+    fflush(stdout);
+
     pid_t pid = fork();
 
-    if (pid == -1) {
+    if (pid < 0)
+    {
         perror("fork");
-        return 1;
+        exit(1);
     }
+    else if (pid == 0)
+    {
+        printf("Child: PID = %d, parent = %d\n",
+               getpid(), getppid());
 
-    if (pid == 0)
-        printf("Child: PID = %ld\n", (long)getpid());
+        execlp("ls", "ls", "-l", NULL);
+
+        perror("exec failed");
+        exit(2);
+    }
     else
-        printf("Parent: child PID = %ld\n", (long)pid);
+    {
+        int status;
+
+        wait(&status);
+
+        if (WIFEXITED(status))
+        {
+            printf("Parent: child %d finished, exit status %d\n",
+                   pid, WEXITSTATUS(status));
+        }
+    }
 
     return 0;
 }
