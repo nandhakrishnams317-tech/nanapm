@@ -1,32 +1,21 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
 int main(void)
 {
-    printf("Parent: PID = %d\n", getpid());
+    pid_t pid = fork();
 
-    pid_t pid = fork();            /* creates a copy of the calling process */
-
-    if (pid < 0) {                 /* fork failed */
+    if (pid == -1) {
         perror("fork");
-        exit(1);
+        return 1;
     }
-    else if (pid == 0) {           /* child: fork() returned 0 */
-        printf("Child : PID = %d, parent = %d\n", getpid(), getppid());
-        execlp("ls", "ls", "-l", NULL);   /* replace the child's image with 'ls' */
-        perror("exec failed");     /* reached only if exec fails */
-        exit(2);
-    }
-    else {                         /* parent: fork() returned the child's PID */
-        int status;
-        wait(&status);             /* block (Blocked state) until the child ends */
-        printf("Parent: child %d finished, exit status %d\n",
-               pid, WEXITSTATUS(status));
-    }
+
+    if (pid == 0)
+        printf("Child: PID = %ld\n", (long)getpid());
+    else
+        printf("Parent: child PID = %ld\n", (long)pid);
+
     return 0;
 }
