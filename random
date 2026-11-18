@@ -1,21 +1,37 @@
 
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
-int main(void)
+int main()
 {
-    pid_t pid = fork();
+    pid_t pid;
+    int status;
 
-    if (pid == -1) {
-        perror("fork");
-        return 1;
-    }
+    pid = fork();
 
     if (pid == 0)
-        printf("Child: PID = %ld\n", (long)getpid());
+    {
+        printf("Child process is running\n");
+        exit(5);
+    }
+    else if (pid > 0)
+    {
+        wait(&status);
+
+        printf("Parent process is running\n");
+
+        if (WIFEXITED(status))
+        {
+            printf("Child exit code: %d\n",
+                   WEXITSTATUS(status));
+        }
+    }
     else
-        printf("Parent: child PID = %ld\n", (long)pid);
+    {
+        printf("Fork failed\n");
+    }
 
     return 0;
 }
