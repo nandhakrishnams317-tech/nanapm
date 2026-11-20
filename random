@@ -1,53 +1,18 @@
 
 
 
-#include <stdio.h>
-#include <sys/wait.h>
-
-int main()
-{
-    pid_t pid;
-
-    pid = wait(NULL);
-
-    printf("Return value = %d\n", pid);
-
-    if (pid == -1)
-    {
-        perror("wait failed");
-    }
-
-    return 0;
-}
-
-
 
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
 
-int main()
+int main(void)
 {
-    pid_t pid;
-    int i;
+    printf("Before execl()\n");
+    fflush(stdout);
 
-    for (i = 0; i < 2; i++)
-    {
-        pid = fork();
+    execl("/bin/ls", "ls", "-l", (char *)NULL);
 
-        if (pid == 0)
-        {
-            printf("Child PID = %d\n", getpid());
-            exit(0);
-        }
-    }
+    perror("execl failed");
 
-    for (i = 0; i < 2; i++)
-    {
-        pid = wait(NULL);
-        printf("Parent collected child PID = %d\n", pid);
-    }
-
-    return 0;
+    return 1;
 }
