@@ -2,15 +2,16 @@
 
 
 
+
 #include <stdio.h>
 #include <unistd.h>
 
 int main(void)
 {
-    printf("Before execl()\n");
+    printf("Displaying current date and time:\n");
     fflush(stdout);
 
-    execl("/bin/ls", "ls", "-l", (char *)NULL);
+    execl("/bin/date", "date", (char *)NULL);
 
     perror("execl failed");
 
