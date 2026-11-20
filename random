@@ -1,17 +1,15 @@
 
-
-
-
-
 #include <stdio.h>
 #include <unistd.h>
 
 int main(void)
 {
-    printf("Displaying current date and time:\n");
+    printf("Executing echo command\n");
     fflush(stdout);
 
-    execl("/bin/date", "date", (char *)NULL);
+    execl("/bin/echo", "echo",
+          "Welcome to Operating System Lab",
+          (char *)NULL);
 
     perror("execl failed");
 
